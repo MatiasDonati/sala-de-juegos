@@ -1,0 +1,24 @@
+<h2>Usuarios</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Edad</th>
+      <th>authId</th>
+      <th>Mail</th>
+      <th>Foto</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of usersdata; index as i">
+      <td>{{ user.name }}</td>
+      <td>{{ user.age }}</td>
+      <td>{{ user.authId }}</td>
+      <td>{{ user.mail }}</td>
+      <td>
+        <img class="avatar" [src]="getAvatarUrl(user.avatarUrl)" alt="Foto de usuario">
+      </td>
+    </tr>
+  </tbody>
+</table>
