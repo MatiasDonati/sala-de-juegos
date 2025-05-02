@@ -2,3 +2,11 @@ https://sala-de-juegos-813cc.web.app
 
 bifiva7670@idoidraw.com
 pass 123123
+
+
+para actualizar el delpoy en Firebase
+
+ng build --configuration production
+
+firebase deploy
+
