@@ -15,7 +15,7 @@
       <td>{{ user.name }}</td>
       <td>{{ user.age }}</td>
       <td>{{ user.authId }}</td>
-      <td>{{ user.mail }}</td>
+      <td>{{ user.mail ? user.mail : 'No cargó correo' }}</td>
       <td>
         <img class="avatar" [src]="getAvatarUrl(user.avatarUrl)" alt="Foto de usuario">
       </td>
