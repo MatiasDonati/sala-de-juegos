@@ -1,14 +1,29 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from './components/home/home.component';
-import { QuienSoyComponent } from './components/quien-soy/quien-soy.component';
-import { RegisterComponent } from './components/register/register.component';
-
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },  
-  { path: 'register', component: RegisterComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'quien-soy', component: QuienSoyComponent }
+  { 
+    path: '', 
+    redirectTo: 'login', 
+    pathMatch: 'full' 
+  },
+  { 
+    path: 'login', 
+    loadComponent: () => import('./components/login/login.component').then(c => c.LoginComponent) 
+  },
+  { 
+    path: 'register', 
+    loadComponent: () => import('./components/register/register.component').then(c => c.RegisterComponent) 
+  },
+  { 
+    path: 'home', 
+    loadComponent: () => import('./components/home/home.component').then(c => c.HomeComponent) 
+  },
+  { 
+    path: 'quien-soy', 
+    loadComponent: () => import('./components/quien-soy/quien-soy.component').then(c => c.QuienSoyComponent) 
+  }
 ];
+
+
+// Cargar rutas con loadComponent  ... 
+// leice lowinn (se pronuncia)

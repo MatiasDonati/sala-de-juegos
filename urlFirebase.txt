@@ -3,8 +3,17 @@ https://sala-de-juegos-813cc.web.app
 bifiva7670@idoidraw.com
 pass 123123
 
+cevata2994@idoidraw.com
+123123
+
+wasase7620@idoidraw.com
+123123
+
+
 supabase - sala-de-juegos
 1234
+
+
 
 
 para actualizar el delpoy en Firebase

@@ -1,6 +1,32 @@
-<h2>Usuarios</h2>
 
-<table class="table">
+<div class="home-container">
+  <h2>Juegos Disponibles</h2>
+  
+  <div class="cards-container">
+    <div class="card">
+      <h3>Ahorcado</h3>
+      <button (click)="jugarAhorcado()">Jugar</button>
+    </div>
+    
+    <div class="card">
+      <h3>Mayor o Menor</h3>
+      <button (click)="jugarMayorMenor()">Jugar</button>
+    </div>
+    
+    <div class="card">
+      <h3>Preguntados</h3>
+      <button (click)="jugarPreguntados()">Jugar</button>
+    </div>
+    
+    <div class="card">
+      <h3>Mi Juego</h3>
+      <button (click)="jugarMiJuego()">Jugar</button>
+    </div>
+  </div>
+</div>
+
+<!-- <h2>Usuarios</h2> -->
+<!-- <table class="table">
   <thead>
     <tr>
       <th>Nombre</th>
@@ -15,10 +41,10 @@
       <td>{{ user.name }}</td>
       <td>{{ user.age }}</td>
       <td>{{ user.authId }}</td>
-      <td>{{ user.mail ? user.mail : 'No cargó correo' }}</td>
+      <td>{{ user.mail ? user.mail : 'No se encontró correo en la base de datos' }}</td>
       <td>
         <img class="avatar" [src]="getAvatarUrl(user.avatarUrl)" alt="Foto de usuario">
       </td>
     </tr>
   </tbody>
-</table>
+</table> -->
