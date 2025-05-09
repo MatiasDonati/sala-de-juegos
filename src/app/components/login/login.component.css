@@ -1,68 +1,17 @@
-.login-container {
-    max-width: 400px;
-    margin: 40px auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .login-container h2 {
-    margin-bottom: 20px;
-  }
-  
-  .login-container form {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-  }
-  
-  .login-container label {
-    margin-top: 10px;
-    font-weight: 500;
-  }
-  
-  .login-container input {
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .login-container input:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-  
-  .login-container button {
-    margin-top: 15px;
-    padding: 10px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .login-container button[type="submit"] {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .login-container button[type="submit"]:hover {
-    background-color: #0056b3;
-  }
-  
-  .login-container button[type="button"] {
-    background-color: #6c757d;
-    color: white;
-  }
-  
-  .login-container button[type="button"]:hover {
-    background-color: #5a6268;
-  }
-  
-  .mensaje {
-    margin-top: 15px;
-    font-weight: bold;
-    color: #333;
-  }
-  
+.btn-violet {
+    background-color: #8A2BE2;
+    border-color: darken(#8A2BE2, 5%);
+    color: #fff;
+}
+
+
+.bg-violet {
+    background-color: #8A2BE2 !important;
+}
+
+
+.btn-secondary-violet {
+    background-color: lighten(#8A2BE2, 35%);
+    color: #8A2BE2;
+    border-color: lighten(#8A2BE2, 30%);
+}
