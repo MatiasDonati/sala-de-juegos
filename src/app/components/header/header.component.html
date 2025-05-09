@@ -1,17 +1,17 @@
-<div class="header">
-  <img src="monstruo.png" alt="Izquierda" class="monstruo-uno" />
-  <!-- <img src="monst-violeta.png" alt="Izquierda" class="monstruo-uno" /> -->
-  <img src="monst-2.png" alt="Izquierda" class="monstruo-dos" />
-  <h1>Bienvenido a la {{title}}</h1>
-  <img src="monst-2.png" alt="Izquierda" class="monstruo-dos" />
-  <!-- <img src="monst-violeta.png" alt="Derecha" class="monstruo-uno" /> -->
-    <img src="monstruo.png" alt="Derecha" class="monstruo-uno" />
+<div class="container-fluid py-3 mb-4 d-flex justify-content-center align-items-center gap-4 rounded bg-light-purple">
+  <img src="monstruo.png" alt="Izquierda" class="img-fluid" style="width: 80px;" />
+  <img src="monst-22.png" alt="Izquierda" class="img-fluid" style="width: 50px;" />
+  <h1 class="mb-0 text-dark">{{ title }}</h1>
+  <img src="monst-22.png" alt="Izquierda" class="img-fluid" style="width: 50px;" />
+  <img src="monstruo.png" alt="Derecha" class="img-fluid" style="width: 80px;" />
+</div>
 
+
+<div class="container text-center mb-4">
+  <div class="d-flex justify-content-center gap-3">
+    <button type="button" class="btn-violet" (click)="irAHome()">Home</button>
+    <button type="button" class="btn-violet" (click)="irALogin()">Login</button>
+    <button type="button" class="btn-violet" (click)="irARegister()">Registro</button>
+    <button type="button" class="btn-violet" (click)="irAQuienSoy()">Quién soy?</button>
   </div>
-  
-  <div class="botones">
-    <button type="button" (click)="irAHome()">Home</button>
-    <button type="button" (click)="irALogin()">Login</button>
-    <button type="button" (click)="irARegister()">Registro</button>
-    <button type="button" (click)="irAQuienSoy()">Quien soy?</button>
-  </div>
+</div>

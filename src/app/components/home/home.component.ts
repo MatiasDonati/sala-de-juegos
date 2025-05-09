@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NgFor } from '@angular/common';
-import { createClient } from '@supabase/supabase-js';
-import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
+// import { NgFor } from '@angular/common';
+// import { createClient } from '@supabase/supabase-js';
+// import { environment } from '../../../environments/environment';
 
-const supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
+// const supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
 
 @Component({
   selector: 'app-home',
@@ -19,19 +19,19 @@ export class HomeComponent  {
   constructor(private router: Router) {}
 
   jugarAhorcado() {
-    console.log('Ir al juego Ahorcado');
+    console.log('Ahorcado');
   }
 
   jugarMayorMenor() {
-    console.log('Ir al juego Mayor o Menor');
+    console.log('Mayor o Menor');
   }
 
   jugarPreguntados() {
-    console.log('Ir al juego Preguntados');
+    console.log('Preguntados');
   }
 
   jugarMiJuego() {
-    console.log('Ir a Mi Juego');
+    console.log('Mi Juego');
   }
 
   // usersdata: any[] = [];

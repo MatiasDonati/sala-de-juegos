@@ -21,4 +21,3 @@ para actualizar el delpoy en Firebase
 ng build --configuration production
 
 firebase deploy
-
