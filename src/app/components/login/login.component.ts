@@ -20,12 +20,7 @@ const supabase = createClient(
 export class LoginComponent {
   username: string = '';
   password: string = '';
-  name: string = '';
-  age: number = 0;
-  avatarFile: File | null = null;
   mensaje: string = '';
-  userInfo: User | null = null;
-
 
   constructor(private router: Router) {}
 
@@ -38,8 +33,9 @@ export class LoginComponent {
         this.mensaje = 'Error: ' + error.message;
         console.error(error);
       } else {
-        this.mensaje = '¡Login exitoso!';
-        // console.log('Login exitoso:', data);
+        // this.mensaje = '¡Login exitoso!';
+
+        
         this.router.navigate(['/home']);
       }
     });
