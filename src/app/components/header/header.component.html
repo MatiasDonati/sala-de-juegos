@@ -1,17 +1,19 @@
-<div class="container-fluid py-3 mb-4 d-flex justify-content-center align-items-center gap-4 rounded bg-light-purple">
-  <img src="monstruo.png" alt="Izquierda" class="img-fluid" style="width: 80px;" />
+<div class="container-fluid py-3 mb-4 d-flex justify-content-center align-items-center gap-4 rounded bg-light-purple position-relative">
   <img src="monst-22.png" alt="Izquierda" class="img-fluid" style="width: 50px;" />
-  <h1 class="mb-0 text-dark">{{ title }}</h1>
+  <h1 class="mb-0 text-black">{{ title }}</h1>
   <img src="monst-22.png" alt="Izquierda" class="img-fluid" style="width: 50px;" />
-  <img src="monstruo.png" alt="Derecha" class="img-fluid" style="width: 80px;" />
-</div>
 
+  <div *ngIf="userInfo" class="user-info d-flex flex-column align-items-end gap-1">
+    <span class="user-bienvenido"> {{ userInfo.email }}</span>
+    <button class="btn btn-danger btn-sm" (click)="cerrarSesion()">Salir</button>
+  </div>
+</div>
 
 <div class="container text-center mb-4">
   <div class="d-flex justify-content-center gap-3">
     <button type="button" class="btn-violet" (click)="irAHome()">Home</button>
-    <button type="button" class="btn-violet" (click)="irALogin()">Login</button>
-    <button type="button" class="btn-violet" (click)="irARegister()">Registro</button>
+    <button *ngIf="!userInfo" type="button" class="btn-violet" (click)="irALogin()">Login</button>
+    <button *ngIf="!userInfo" type="button" class="btn-violet" (click)="irARegister()">Registro</button>
     <button type="button" class="btn-violet" (click)="irAQuienSoy()">Quién soy?</button>
   </div>
 </div>

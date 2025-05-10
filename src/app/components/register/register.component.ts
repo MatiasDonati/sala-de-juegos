@@ -4,6 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../header/header.component';
 
 const supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
 
@@ -12,7 +13,7 @@ const supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
   standalone: true,
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  imports: [FormsModule, CommonModule]
+  imports: [FormsModule, CommonModule, HeaderComponent]
 })
 export class RegisterComponent {
   email: string = '';

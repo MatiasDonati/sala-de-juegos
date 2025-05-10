@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { createClient, User } from '@supabase/supabase-js';
+import { HeaderComponent } from '../header/header.component';
 
 const supabase = createClient(
   'https://qzmlctjhmeozqhvsffde.supabase.co',
@@ -12,7 +13,7 @@ const supabase = createClient(
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, HeaderComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

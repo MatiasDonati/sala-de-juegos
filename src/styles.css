@@ -1,1 +1,13 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: url('../public/fondo.png') repeat;
+  background-size: 1024px 1024px;
+}

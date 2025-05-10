@@ -23,7 +23,3 @@ export const routes: Routes = [
     loadComponent: () => import('./components/quien-soy/quien-soy.component').then(c => c.QuienSoyComponent) 
   }
 ];
-
-
-// Cargar rutas con loadComponent  ... 
-// leice lowinn (se pronuncia)

@@ -1,5 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+h1 {
+  font-family: 'Poppins', sans-serif;
+}
+
 .bg-light-purple {
   background-color: #e0b3ff;
+}
+
+.user-info {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.user-bienvenido {
+  font-weight: 500;
+  color: #5e2373;
+  font-size: 0.9rem;
+  white-space: nowrap;
 }
 
 .btn-violet {
