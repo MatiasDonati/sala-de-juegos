@@ -1,23 +1,13 @@
 <div class="register-container">
-    <h2>Registro</h2>
+  <h2>Registro</h2>
 
-    <label for="email">Email</label>
-    <input id="email" type="email" class="register-input" placeholder="Email" [(ngModel)]="email" />
-  
-    <label for="password">Contraseña</label>
-    <input id="password" type="password" class="register-input" placeholder="Contraseña" [(ngModel)]="password" />
-  
-    <label for="name">Nombre</label>
-    <input id="name" type="text" class="register-input" placeholder="Nombre" [(ngModel)]="name" />
-  
-    <label for="age">Edad</label>
-    <input id="age" type="number" class="register-input" placeholder="Edad" [(ngModel)]="age" />
-  
-    <label for="avatar">Avatar</label>
-    <input id="avatar" type="file" class="register-input" (change)="onFileSelected($event)" />
-  
-    <button class="register-button" (click)="register()">Registrarse</button>
-  
-    <p class="mensaje" *ngIf="mensaje">{{ mensaje }}</p>
-  </div>
-  
+  <label for="email">Email</label>
+  <input id="email" type="email" class="register-input" placeholder="Email" [(ngModel)]="email" />
+
+  <label for="password">Contraseña</label>
+  <input id="password" type="password" class="register-input" placeholder="Contraseña" [(ngModel)]="password" />
+
+  <button class="register-button" (click)="register()">Registrarse</button>
+
+  <p class="mensaje" *ngIf="mensaje">{{ mensaje }}</p>
+</div>

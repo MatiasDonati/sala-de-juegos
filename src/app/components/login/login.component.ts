@@ -23,6 +23,8 @@ export class LoginComponent {
   age: number = 0;
   avatarFile: File | null = null;
   mensaje: string = '';
+  userInfo: User | null = null;
+
 
   constructor(private router: Router) {}
 
@@ -36,6 +38,7 @@ export class LoginComponent {
         console.error(error);
       } else {
         this.mensaje = '¡Login exitoso!';
+        // console.log('Login exitoso:', data);
         this.router.navigate(['/home']);
       }
     });

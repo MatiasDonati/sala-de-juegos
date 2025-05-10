@@ -1,0 +1,50 @@
+.container {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  padding: 40px;
+  border-radius: 20px;
+  color: #fff;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 15px;
+  cursor: pointer; /* Manito */
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.btn-primary {
+  background-color: #ff6b6b;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #ff4757;
+  transform: scale(1.05);
+}
+
+.btn-primary:active {
+  background-color: #e84118;
+  transform: scale(0.95);
+}
