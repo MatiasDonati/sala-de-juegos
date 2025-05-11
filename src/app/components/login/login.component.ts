@@ -33,9 +33,6 @@ export class LoginComponent {
         this.mensaje = 'Error: ' + error.message;
         console.error(error);
       } else {
-        // this.mensaje = '¡Login exitoso!';
-
-        
         this.router.navigate(['/home']);
       }
     });

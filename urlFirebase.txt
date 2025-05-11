@@ -18,6 +18,13 @@ supabase - sala-de-juegos
 
 para actualizar el delpoy en Firebase
 
+
+Hacer el cambio de redireccionamiento de Firebase
+
+http://localhost:4200
+
+https://sala-de-juegos-813cc.web.app/
+
 ng build --configuration production
 
 firebase deploy

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { createClient, User } from '@supabase/supabase-js';
@@ -10,11 +10,14 @@ const supabase = createClient(
 
 @Component({
   selector: 'app-header',
+  standalone: true,
   imports: [NgIf],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+
+  @Output() usuarioLogueado = new EventEmitter<string | null>();
 
   userInfo: User | null = null;
   
@@ -22,31 +25,41 @@ export class HeaderComponent {
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
-    this.obtenerUsuario();
+  async ngOnInit() {
+    await this.obtenerUsuario();
   }
-    async obtenerUsuario() {
-    const { data, error } = await supabase.auth.getUser();
 
-    if (error) {
-      console.error('Error al obtener usuario:', error);
-      console.log('Emitido desde HomeComponent: null');
-      return;
+  async obtenerUsuario() {
+    try {
+      const { data, error } = await supabase.auth.getUser();
+
+      if (error) {
+        console.error('Error al obtener usuario:', error);
+        this.usuarioLogueado.emit(null);
+        return;
+      }
+
+      this.userInfo = data.user;
+      const email = this.userInfo ? this.userInfo.email : null;
+      this.usuarioLogueado.emit(email);
+    } catch (err) {
+      console.error('Error al obtener usuario:', err);
+      this.usuarioLogueado.emit(null);
     }
-    this.userInfo = data.user;
-    console.log('Emitido desde HomeComponent:', this.userInfo);
   }
 
   cerrarSesion() {
     supabase.auth.signOut()
       .then(() => {
         this.userInfo = null;
+        this.usuarioLogueado.emit(null);
         this.router.navigate(['/login']);
       })
       .catch((error) => {
         console.error('Error al cerrar sesión:', error);
       });
   }
+
   
   irAHome() {
     this.router.navigate(['/home']);
@@ -59,5 +72,5 @@ export class HeaderComponent {
   }
   irARegister() {
     this.router.navigate(['/register']);
-}
+  }
 }
