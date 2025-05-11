@@ -18,9 +18,7 @@ const supabase = createClient(
 export class HeaderComponent implements OnInit {
 
   @Output() usuarioLogueado = new EventEmitter<string | null>();
-
   userInfo: User | null = null;
-  
   title = 'Sala de Juegos';
 
   constructor(private router: Router) {}
