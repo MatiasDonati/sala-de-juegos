@@ -18,7 +18,6 @@ export class HomeComponent {
 
   recibirUsuarioLogueado(email: string | null) {
     this.userEmail = email;
-    console.log('Usuario logueado en Home:', this.userEmail);
   }
 
   jugarAhorcado() {
