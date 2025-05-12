@@ -47,17 +47,48 @@ export class LoginComponent {
     }).then(({ data, error }) => {
       if (error) {
         this.mensaje = 'Error: ' + error.message;
-        console.error('Error en el login:', error);
       } else {
         this.mensaje = '';
-        console.log('Usuario logueado:', data);
-        this.router.navigate(['/home']);
+
+        if (data.user) {
+          const userId = data.user.id;
+          this.registrarLogin(userId);
+          this.router.navigate(['/home']);
+        }
       }
     }).catch((err) => {
-      console.error('Error en la conexión:', err);
       this.mensaje = 'Error en la conexión';
     });
   }
+
+  async registrarLogin(userId: string) {
+    try {
+      const { data, error } = await supabase
+        .from('login-logs')
+        .insert([
+          {
+            user_id: userId,
+            fecha_log: new Date().toISOString()
+          }
+        ]);
+
+      if (error) {
+        console.error('Error registrando el login:', error.message);
+      } else {
+        console.log('Login registrado correctamente:', data);
+      }
+
+    } catch (err) {
+      console.error('Error en la inserción del login:', err);
+    }
+  }
+
+    loginRapido(email: string, password: string) {
+    this.username = email;
+    this.password = password;
+    this.login();
+  }
+
 
   irARegistrarse() {
     this.router.navigate(['/register']);
