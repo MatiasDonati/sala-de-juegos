@@ -22,42 +22,37 @@ export class RegisterComponent {
 
   constructor(private router: Router) {}
 
-  register() {
-    console.log('Intentando registrar usuario en auth.users...');
+  async register() {
 
-    supabase.auth.signUp({
-      email: this.email,
-      password: this.password
-    })
-    .then(({ data, error }) => {
+    try {
+      const { data: usaurioEmailExistente } = await supabase
+        .from('users-data')
+        .select('mail')
+        .eq('mail', this.email)
+        .single();
+
+      if (usaurioEmailExistente) {
+        this.mensaje = 'El email ya se encuentra en uso.';
+        return;
+      }
+
+      const { data, error } = await supabase.auth.signUp({
+        email: this.email,
+        password: this.password
+      });
+
       if (error) {
-        console.error('Error al registrarse en auth.users:', error.message);
         this.mensaje = 'Error al registrarse: ' + error.message;
         return;
       }
 
-      if (data.user) {
-        const authId = data.user.id;
-        const email = data.user.email;
-
-        console.log('Datos a insertar en users-data:', { authId, mail: email });
-
-        // Insertar en users-data
-        supabase
-          .from('users-data')
-          .insert([{ authId: authId, mail: email }])
-          .then(({ data, error }) => {
-            if (error) {
-              console.error('Error al insertar en users-data:', error.message);
-              this.mensaje = 'Error al registrar en la base de datos.';
-              return;
-            }
-
-            console.log('Usuario guardado en users-data:', data);
-            this.mensaje = '¡Registro exitoso! Revisá tu correo.';
-            this.router.navigate(['/login']);
-          });
-      }
-    });
+      await supabase.from('users-data').insert([{ authId: data.user?.id, mail: data.user?.email }]);
+      this.mensaje = '¡Registro exitoso! Revisá tu correo.';
+      this.router.navigate(['/login']);
+      
+    } catch (err) {
+      this.mensaje = 'Ocurrió un error inesperado.';
+      console.error(err);
+    }
   }
 }
