@@ -1,0 +1,47 @@
+.container-gral {
+  max-width: 600px;
+  margin: 50px auto;
+  text-align: center;
+  padding: 100px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  transition: transform 0.3s;
+}
+.container-gral p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  color: #e0b3ff;
+}
+
+.piano {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.nota {
+  width: 50px;
+  height: 150px;
+  background-color: #ffffff;
+  border: 1px solid #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.nota:hover {
+  background-color: #e0b3ff;
+}
+
+.nota:active {
+  background-color: #c9a1ff;
+  transform: scale(0.95);
+}
+
