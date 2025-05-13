@@ -24,7 +24,7 @@ export class LoginComponent {
 
   constructor(private router: Router) {}
 
-  login() {
+  login(loginBotonRapido: boolean = false) {
     if (!this.username || !this.password) {
       this.mensaje = 'Todos los campos son obligatorios';
       return;
@@ -52,7 +52,11 @@ export class LoginComponent {
 
         if (data.user) {
           const userId = data.user.id;
-          this.registrarLogin(userId);
+
+          if(!loginBotonRapido) {
+            this.registrarLogin(userId);
+          }
+
           this.router.navigate(['/home']);
         }
       }
@@ -64,7 +68,7 @@ export class LoginComponent {
   async registrarLogin(userId: string) {
     try {
       const { data, error } = await supabase
-        .from('login-logs')
+        .from('logins-usuarios')
         .insert([
           {
             user_id: userId,
@@ -86,7 +90,7 @@ export class LoginComponent {
     loginRapido(email: string, password: string) {
     this.username = email;
     this.password = password;
-    this.login();
+    this.login(true);
   }
 
 

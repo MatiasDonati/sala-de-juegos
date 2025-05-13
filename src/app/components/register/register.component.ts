@@ -25,6 +25,10 @@ export class RegisterComponent {
   async register() {
 
     try {
+      // VER ESTO
+      // VER ESTO
+      // VER ESTO
+      // VER ESTO
       const { data: usaurioEmailExistente } = await supabase
         .from('users-data')
         .select('mail')

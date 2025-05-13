@@ -32,7 +32,7 @@ export class HomeComponent {
     console.log('Preguntados');
   }
 
-  jugarMiJuego() {
-    console.log('Mi Juego');
+  jugarMelodiaOlvidadiza() {
+    console.log('Melodia Olvidadiza');
   }
 }

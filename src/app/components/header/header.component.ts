@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   @Output() usuarioLogueado = new EventEmitter<string | null>();
   userInfo: User | null = null;
   title = 'Sala de Juegos';
-
+  
   constructor(private router: Router) {}
 
   async ngOnInit() {
@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
       const { data, error } = await supabase.auth.getUser();
 
       if (error) {
-        console.error('Error al obtener usuario:', error);
+        // console.error('Error al obtener usuario:', error);
         this.usuarioLogueado.emit(null);
         return;
       }
