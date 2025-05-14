@@ -4,11 +4,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { createClient } from '@supabase/supabase-js';
 import { HeaderComponent } from '../header/header.component';
+import { environment } from '../../../environments/environment';
 
-const supabase = createClient(
-  'https://qzmlctjhmeozqhvsffde.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6bWxjdGpobWVvenFodnNmZmRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYwMTIwMTQsImV4cCI6MjA2MTU4ODAxNH0.iqsEoW-qpTMjcdYTeVLb5dqocFIIWHiNTL8OdDkCqDM'
-);
+const supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
+
 
 @Component({
   selector: 'app-login',
@@ -25,6 +24,7 @@ export class LoginComponent {
   constructor(private router: Router) {}
 
   login(loginBotonRapido: boolean = false) {
+
     if (!this.username || !this.password) {
       this.mensaje = 'Todos los campos son obligatorios';
       return;
@@ -46,7 +46,10 @@ export class LoginComponent {
       password: this.password,
     }).then(({ data, error }) => {
       if (error) {
-        this.mensaje = 'Error: ' + error.message;
+
+        if(error.message === 'Invalid login credentials') {
+          this.mensaje = 'Credenciales inválidas';
+        }
       } else {
         this.mensaje = '';
 
@@ -56,7 +59,6 @@ export class LoginComponent {
           if(!loginBotonRapido) {
             this.registrarLogin(userId);
           }
-
           this.router.navigate(['/home']);
         }
       }
@@ -76,6 +78,7 @@ export class LoginComponent {
           }
         ]);
 
+      // Por si falla SUPABASE
       if (error) {
         console.error('Error registrando el login:', error.message);
       } else {

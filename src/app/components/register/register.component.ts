@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
 
+
 const supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
 
 @Component({
@@ -22,20 +23,17 @@ export class RegisterComponent {
 
   constructor(private router: Router) {}
 
+  
   async register() {
-
     try {
-      // VER ESTO
-      // VER ESTO
-      // VER ESTO
-      // VER ESTO
-      const { data: usaurioEmailExistente } = await supabase
+
+      const { data: usuarioEmailExistente } = await supabase
         .from('users-data')
         .select('mail')
         .eq('mail', this.email)
         .single();
 
-      if (usaurioEmailExistente) {
+      if (usuarioEmailExistente) {
         this.mensaje = 'El email ya se encuentra en uso.';
         return;
       }
@@ -50,13 +48,28 @@ export class RegisterComponent {
         return;
       }
 
-      await supabase.from('users-data').insert([{ authId: data.user?.id, mail: data.user?.email }]);
-      this.mensaje = '¡Registro exitoso! Revisá tu correo.';
-      this.router.navigate(['/login']);
-      
+      // login Automatico
+      // login Automatico
+      const { error: loginError } = await supabase.auth.signInWithPassword({
+        email: this.email,
+        password: this.password
+      });
+
+      if (loginError) {
+        this.mensaje = 'Error al iniciar sesión automáticamente: ' + loginError.message;
+        return;
+      }
+
+      await supabase.from('users-data').insert([
+        { authId: data.user?.id, mail: data.user?.email }
+      ]);
+
+      this.mensaje = '¡Registro y login exitoso!';
+      this.router.navigate(['/home']);
+
     } catch (err) {
       this.mensaje = 'Ocurrió un error inesperado.';
-      console.error(err);
+      console.error('Error en el registro:', err);
     }
   }
 }
