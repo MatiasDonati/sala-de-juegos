@@ -50,6 +50,7 @@ export class RegisterComponent {
 
       // login Automatico
       // login Automatico
+      
       const { error: loginError } = await supabase.auth.signInWithPassword({
         email: this.email,
         password: this.password
@@ -64,11 +65,11 @@ export class RegisterComponent {
         { authId: data.user?.id, mail: data.user?.email }
       ]);
 
-      this.mensaje = '¡Registro y login exitoso!';
+      //REGISTRO y LOGIN con EXITO
       this.router.navigate(['/home']);
 
     } catch (err) {
-      this.mensaje = 'Ocurrió un error inesperado.';
+      this.mensaje = 'Ocurrió un error.';
       console.error('Error en el registro:', err);
     }
   }
