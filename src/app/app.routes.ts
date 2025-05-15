@@ -21,5 +21,9 @@ export const routes: Routes = [
   { 
     path: 'quien-soy', 
     loadComponent: () => import('./components/quien-soy/quien-soy.component').then(c => c.QuienSoyComponent) 
+  },
+  { 
+    path: 'juegos/melodia-olvidadiza', 
+    loadComponent: () => import('./components/juegos/melodia-olvidadiza/melodia-olvidadiza.component').then(c => c.MelodiaOlvidadizaComponent) 
   }
 ];
