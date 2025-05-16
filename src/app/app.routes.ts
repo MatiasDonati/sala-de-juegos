@@ -25,5 +25,9 @@ export const routes: Routes = [
   { 
     path: 'juegos/melodia-olvidadiza', 
     loadComponent: () => import('./components/juegos/melodia-olvidadiza/melodia-olvidadiza.component').then(c => c.MelodiaOlvidadizaComponent) 
+  },
+  { 
+    path: 'chat', 
+    loadComponent: () => import('./components/chat/chat.component').then(c => c.ChatComponent) 
   }
 ];

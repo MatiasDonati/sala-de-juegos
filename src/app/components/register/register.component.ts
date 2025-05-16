@@ -45,6 +45,9 @@ export class RegisterComponent {
 
       if (error) {
         this.mensaje = 'Error al registrarse: ' + error.message;
+        if (error.message === 'Password should be at least 6 characters.') {
+          this.mensaje = 'La contraseña debe tener al menos 6 caracteres.';
+        }
         return;
       }
 

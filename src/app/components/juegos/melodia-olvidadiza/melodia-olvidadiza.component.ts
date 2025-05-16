@@ -53,7 +53,7 @@ export class MelodiaOlvidadizaComponent {
       const isCorrect = this.playedNotes.every((note, index) => note === this.sequence[index]);
       console.log(isCorrect ? 'Correct sequence!' : 'Incorrect sequence. Try again.');
       this.playedNotes = [];
-      this.generateSequence(this.sequence.length + 1); // Incrementa la secuencia
+      this.generateSequence(this.sequence.length + 1);
     }
   }
 }

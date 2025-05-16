@@ -33,7 +33,7 @@ export class HomeComponent {
   }
 
   jugarMelodiaOlvidadiza() {
-    console.log('Melodia Olvidadiza');
+    // console.log('Melodia Olvidadiza');
     this.router.navigate(['/juegos/melodia-olvidadiza']);
   }
 }

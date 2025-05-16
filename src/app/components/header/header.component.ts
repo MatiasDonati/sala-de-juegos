@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
   @Output() usuarioLogueado = new EventEmitter<string | null>();
   userInfo: User | null = null;
-  mostrarLoginRegister: boolean = false; // Arranca en false
+  mostrarLoginRegister: boolean = false;
   title = 'Sala de Juegos';
   
   constructor(private router: Router) {}
@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
       }
 
       this.userInfo = data.user;
-      this.mostrarLoginRegister = !this.userInfo;  // true si no hay userInfo, false si hay userInfo
+    this.mostrarLoginRegister = this.userInfo ? false : true;
       const email = this.userInfo ? this.userInfo.email : null;
       this.usuarioLogueado.emit(email);
     } catch (err) {
@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
     supabase.auth.signOut()
       .then(() => {
         this.userInfo = null;
-        this.mostrarLoginRegister = true;  // Al cerrar sesión, mostramos Login y Register
+        this.mostrarLoginRegister = true;
         this.usuarioLogueado.emit(null);
         this.router.navigate(['/login']);
       })
@@ -71,5 +71,9 @@ export class HeaderComponent implements OnInit {
   }
   irARegister() {
     this.router.navigate(['/register']);
+  }
+
+  irAlChat() {
+    this.router.navigate(['/chat']);
   }
 }

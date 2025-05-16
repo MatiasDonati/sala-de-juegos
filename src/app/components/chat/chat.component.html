@@ -1,0 +1,24 @@
+<app-header></app-header>
+<div class="fondo">
+  <div class="chat-wrapper">
+    <div class="chat-box" #chatBox>
+      <div *ngFor="let m of mensajes(); trackBy: trackById" 
+           [class.mio]="m.id_usuario === miUsuario?.email" 
+           [class.otro]="m.id_usuario !== miUsuario?.email">
+        <div class="mensaje">
+          <div class="contenido">
+            <p class="meta">
+              {{ m.created_at | date:'short' }} - {{ m.id_usuario }}
+            </p>
+            <p class="texto">{{ m.mensaje }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <input [(ngModel)]="mensaje" placeholder="Escribí un mensaje..." />
+      <button (click)="enviar()">Enviar</button>
+    </div>
+  </div>
+</div>
