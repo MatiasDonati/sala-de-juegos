@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
       }
 
       this.userInfo = data.user;
-    this.mostrarLoginRegister = this.userInfo ? false : true;
+      this.mostrarLoginRegister = this.userInfo ? false : true;
       const email = this.userInfo ? this.userInfo.email : null;
       this.usuarioLogueado.emit(email);
     } catch (err) {

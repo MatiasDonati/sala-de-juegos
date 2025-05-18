@@ -12,9 +12,6 @@ const supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
 export class SupabaseService {
   supabase = supabase;
 
-  /**
-   * Traer todos los mensajes de la tabla `mensajes-del-chat`
-   */
   async traerMensajes() {
     const { data, error } = await supabase
       .from('mensajes-del-chat')
@@ -29,9 +26,6 @@ export class SupabaseService {
     return data;
   }
 
-  /**
-   * Guardar un mensaje en la tabla `mensajes-del-chat`
-   */
   async guardarMensaje(id_usuario: string, mensaje: string) {
     const { error } = await supabase
       .from('mensajes-del-chat')

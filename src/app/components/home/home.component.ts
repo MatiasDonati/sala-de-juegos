@@ -21,19 +21,18 @@ export class HomeComponent {
   }
 
   jugarAhorcado() {
-    console.log('Ahorcado');
-  }
+    this.router.navigate(['/juegos/ahorcado']);
+    }
 
   jugarMayorMenor() {
-    console.log('Mayor o Menor');
+    this.router.navigate(['/juegos/mayor-menor']);
   }
 
   jugarPreguntados() {
-    console.log('Preguntados');
+    this.router.navigate(['/juegos/preguntados']);
   }
 
   jugarMelodiaOlvidadiza() {
-    // console.log('Melodia Olvidadiza');
     this.router.navigate(['/juegos/melodia-olvidadiza']);
   }
 }

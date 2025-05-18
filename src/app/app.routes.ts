@@ -23,11 +23,11 @@ export const routes: Routes = [
     loadComponent: () => import('./components/quien-soy/quien-soy.component').then(c => c.QuienSoyComponent) 
   },
   { 
-    path: 'juegos/melodia-olvidadiza', 
-    loadComponent: () => import('./components/juegos/melodia-olvidadiza/melodia-olvidadiza.component').then(c => c.MelodiaOlvidadizaComponent) 
-  },
-  { 
     path: 'chat', 
     loadComponent: () => import('./components/chat/chat.component').then(c => c.ChatComponent) 
-  }
+  },
+  { 
+    path: 'juegos',
+    loadChildren: () => import('./components/juegos/juegos-modulo/juegos.module').then(m => m.JuegosModule)
+  },
 ];
