@@ -1,10 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { createClient, User } from '@supabase/supabase-js';
-import { environment } from '../../../environments/environment';
-
-const supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -15,60 +12,58 @@ const supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
 })
 export class HeaderComponent implements OnInit {
 
-  @Output() usuarioLogueado = new EventEmitter<string | null>();
-  userInfo: User | null = null;
+  userEmail: string | null = null;
   mostrarLoginRegister: boolean = false;
   title = 'Sala de Juegos';
   
-  constructor(private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
+  /**
+   * En el `ngOnInit`, consultamos al servicio si hay un usuario logueado.
+   */
   async ngOnInit() {
-    await this.obtenerUsuario();
+    await this.verificarUsuario();
   }
 
-  async obtenerUsuario() {
+  /**
+   * Verifica si hay usuario logueado y actualiza el estado del header.
+   */
+  async verificarUsuario() {
     try {
-      const { data, error } = await supabase.auth.getUser();
-
-      if (error) {
-        this.mostrarLoginRegister = true;
-        this.usuarioLogueado.emit(null);
-        return;
-      }
-
-      this.userInfo = data.user;
-      this.mostrarLoginRegister = this.userInfo ? false : true;
-      const email = this.userInfo ? this.userInfo.email : null;
-      this.usuarioLogueado.emit(email);
+      this.userEmail = await this.authService.obtenerUsuarioActual();
+      this.mostrarLoginRegister = !this.userEmail;
     } catch (err) {
-      console.error('Error al obtener usuario:', err);
+      console.error('Error al verificar el usuario:', err);
       this.mostrarLoginRegister = true;
-      this.usuarioLogueado.emit(null);
     }
   }
 
-  cerrarSesion() {
-    supabase.auth.signOut()
-      .then(() => {
-        this.userInfo = null;
-        this.mostrarLoginRegister = true;
-        this.usuarioLogueado.emit(null);
-        this.router.navigate(['/login']);
-      })
-      .catch((error) => {
-        console.error('Error al cerrar sesión:', error);
-      });
+  /**
+   * Cierra la sesión y redirige al login.
+   */
+  async cerrarSesion() {
+    try {
+      await this.authService.cerrarSesion();
+      this.userEmail = null;
+      this.mostrarLoginRegister = true;
+      this.router.navigate(['/login']);
+    } catch (err) {
+      console.error('Error al cerrar sesión:', err);
+    }
   }
 
   irAHome() {
     this.router.navigate(['/home']);
   }
+
   irAQuienSoy() {
     this.router.navigate(['/quien-soy']);
   }
+
   irALogin() {
     this.router.navigate(['/login']);
   }
+
   irARegister() {
     this.router.navigate(['/register']);
   }

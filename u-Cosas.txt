@@ -1,14 +1,10 @@
 
-Incorporar el chat: ☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
+- Incorporar el chat: ☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
 
-Solamente los usuarios logeados podran acceder a la sala de chat.
-Deberemos marcar el usuario y hora q ennvio el mensaje.
-Tabla mensajes, chat, tipo whatsApp, tabla supabase. (Real time Supabase, Observable de Supase)
+- Ver Servicio de login en header !
 
-Ver Servicio de login en header !
-
-Ahorcado:
+- Ahorcado:
  no debe ingresar datos desde el tecaldo, utilizar botones para el ingreso de las letras. no tiene que dejar tocar mas de una vez la misma tecla.
 
-Mayor o menor: 
-desde un mazo de cartas se va preguntado si la siguiente es mayor o menor. El jugador suma puntos anda cada carta q adivine.
+- Mayor o menor: 
+ desde un mazo de cartas se va preguntado si la siguiente es mayor o menor. El jugador suma puntos anda cada carta q adivine.

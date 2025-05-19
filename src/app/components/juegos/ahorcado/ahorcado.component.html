@@ -1,2 +1,36 @@
 <app-header></app-header>
-<p>ahorcado works!</p>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-sm-10">
+      <div class="card p-4 shadow-lg">
+
+        <h2 class="text-center mb-4">
+          <span *ngIf="juegoGanado">Ganaste!</span>
+          <span *ngIf="juegoPerdido" class="text-danger">Perdiste. La palabra era: {{ palabra }}</span>
+        </h2>
+
+        <div class="text-center mb-4">
+            <img [src]="imagenAhorcado" alt="Ahorcado" class="imagen-ahorcado" />
+        </div>
+
+        <div class="palabra-oculta mb-4 d-flex justify-content-center gap-2">
+          <span *ngFor="let letra of palabraSecreta" class="letra">{{ letra }}</span>
+        </div>
+
+        <div class="teclado d-flex flex-wrap justify-content-center gap-2 mb-4">
+          <button *ngFor="let letra of abecedario" 
+                  (click)="verificarLetra(letra)" 
+                  [disabled]="letrasFallidas.includes(letra) || palabraSecreta.includes(letra)"
+                  class="btn btn-violet">
+            {{ letra }}
+          </button>
+        </div>
+
+        <div class="text-center mt-3">
+          <button (click)="reiniciarJuego()" class="btn btn-secondary-violet">Reiniciar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

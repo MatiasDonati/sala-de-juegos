@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { createClient } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 
-const SUPABASE_URL = 'https://tu-supabase-url.supabase.co';
-const SUPABASE_KEY = 'tu-supabase-key';
 const supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
 
 @Injectable({
