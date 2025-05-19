@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
+
+import { AuthService } from '../../../services/auth.service';
+import { SupabaseService } from '../../../services/supabase.service';
+
 import { HeaderComponent } from "../../header/header.component";
 import { NgIf } from '@angular/common';
+
 
 interface Carta {
   valor: number;
@@ -18,17 +23,38 @@ export class MayorOMenorComponent {
   mazo: Carta[] = [];
   cartaActual: Carta | null = null;
   cartaSiguiente: Carta | null = null;
+
   puntos: number = 0;
   vidas: number = 5;
+
   juegoTerminado: boolean = false;
   jugadaAcertada: boolean | null = null;
+  esIgual: boolean = false;
+
+  usuarioEmail: string | null = null;
 
   palos: string[] = ['Oro', 'Basto', 'Espada', 'Copa'];
 
-  constructor() {
+  tablaPuntajes: string = 'puntajes-mayor-menor';
+
+  constructor(
+    private authService: AuthService,
+    private supabaseService: SupabaseService
+  ) {
     this.iniciarJuego();
+    this.obtenerUsuario();
   }
 
+  async obtenerUsuario(): Promise<void> {
+    try {
+      this.usuarioEmail = await this.authService.obtenerUsuarioActual();
+      console.log('Usuario logueado:', this.usuarioEmail);
+    } catch (error) {
+      console.error('Error al obtener el usuario:', error);
+    }
+  }
+
+ 
   iniciarJuego(): void {
     this.mazo = this.generarMazo();
     this.barajarMazo();
@@ -37,7 +63,7 @@ export class MayorOMenorComponent {
     this.vidas = 5;
     this.juegoTerminado = false;
     this.jugadaAcertada = null;
-
+    this.esIgual = false;
   }
 
   generarMazo(): Carta[] {
@@ -54,10 +80,13 @@ export class MayorOMenorComponent {
     this.mazo = this.mazo.sort(() => Math.random() - 0.5);
   }
 
+
   siguienteCarta(): void {
     if (this.mazo.length > 0) {
       this.cartaActual = this.cartaSiguiente || this.mazo.shift()!;
       this.cartaSiguiente = this.mazo.shift() || null;
+      console.log('Carta actual:', this.cartaActual);
+      console.log('Carta siguiente:', this.cartaSiguiente);
     } else {
       this.juegoTerminado = true;
     }
@@ -68,19 +97,46 @@ export class MayorOMenorComponent {
 
     const esMayor = this.cartaSiguiente.valor > this.cartaActual.valor;
     const esMenor = this.cartaSiguiente.valor < this.cartaActual.valor;
+    const esIgual = this.cartaSiguiente.valor === this.cartaActual.valor;
 
-    if ((eleccion === 'mayor' && esMayor) || (eleccion === 'menor' && esMenor)) {
+    if (esIgual) {
+      console.log('Era igual. No se pierde ni se gana.');
+      this.esIgual = true;
+      this.jugadaAcertada = null;
+    } 
+    else if ((eleccion === 'mayor' && esMayor) || (eleccion === 'menor' && esMenor)) {
       this.puntos++;
+       this.esIgual = false;
       this.jugadaAcertada = true;
-    } else {
+    } 
+    else {
       this.vidas--;
+       this.esIgual = false;
       this.jugadaAcertada = false;
+
       if (this.vidas <= 0) {
         this.juegoTerminado = true;
+        this.guardarPuntaje();
       }
     }
 
     this.siguienteCarta();
+  }
+
+
+  async guardarPuntaje(): Promise<void> {
+    if (!this.usuarioEmail) {
+      console.warn('No hay usuario logueado. No se guarda el puntaje.');
+      return;
+    }
+
+    console.log(`Guardando puntaje en ${this.tablaPuntajes}:`, this.usuarioEmail, this.puntos);
+
+    try {
+      await this.supabaseService.guardarPuntaje(this.tablaPuntajes, this.usuarioEmail, this.puntos);
+    } catch (error) {
+      console.error('Error al guardar el puntaje:', error);
+    }
   }
 
   obtenerImagenPalo(palo: string): string {

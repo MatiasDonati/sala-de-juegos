@@ -4,34 +4,35 @@
   <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8 col-sm-10 position-relative">
 
-      <div class="card p-4 shadow-lg fondo-negro">
+      <div class="game-container p-4 shadow-lg fondo-negro">
 
         <div class="vidas">
           Vidas: {{ vidas }}
         </div>
 
-        <h2 class="text-center mb-4" *ngIf="juegoTerminado">
-          Puntaje final: {{ puntos }}
-        </h2>
+        <div *ngIf="juegoTerminado" class="puntaje-final text-center mb-4">
+          <h2>Puntaje final: {{ puntos }}</h2>
+        </div>
 
-        <div class="text-center mb-4" *ngIf="cartaActual">
+        <div class="carta-container text-center mb-4" *ngIf="cartaActual">
           <div class="carta">
             <img [src]="obtenerImagenPalo(cartaActual.palo)" alt="{{ cartaActual.palo }}" class="palo">
             <div class="valor">{{ cartaActual.valor }}</div>
           </div>
         </div>
 
-        <div class="text-center mb-4">
-          <p>
-            <span *ngIf="jugadaAcertada !== null">{{ jugadaAcertada ? 'Jugada anterior:  ✅' : 'Jugada anterior: ❌' }}</span>
-          </p>
+        <div class="text-center mb-4 jugada-anterior">
+        <p *ngIf="jugadaAcertada !== null">
+            Jugada anterior: {{ jugadaAcertada ? '✅' : '❌' }}
+        </p>
+        <p *ngIf="esIgual">Era igual. No se pierde ni se gana.</p>
         </div>
 
-        <div class="text-center mb-4 siguiente-carta">
+        <div class="siguiente-carta text-center mb-4">
           <p>La siguiente carta es...</p>
         </div>
 
-        <div class="teclado d-flex flex-wrap justify-content-center gap-2 mb-4">
+        <div class="teclado d-flex justify-content-center gap-2 mb-4">
           <button (click)="verificarEleccion('menor')" class="btn btn-violet">Menor</button>
           <button (click)="verificarEleccion('mayor')" class="btn btn-violet">Mayor</button>
         </div>
