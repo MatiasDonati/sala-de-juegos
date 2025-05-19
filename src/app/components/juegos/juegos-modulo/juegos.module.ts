@@ -12,8 +12,8 @@ const routes: Routes = [
     loadComponent: () => import('../ahorcado/ahorcado.component').then(c => c.AhorcadoComponent)
   },
   {
-    path: 'mayor-menor',
-    loadComponent: () => import('../mayor-menor/mayor-menor.component').then(c => c.MayorMenorComponent)
+    path: 'mayor-o-menor',
+    loadComponent: () => import('../mayor-o-menor/mayor-o-menor.component').then(c => c.MayorOMenorComponent)
   },
   {
     path: 'preguntados',

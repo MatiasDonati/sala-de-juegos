@@ -1,0 +1,47 @@
+<app-header></app-header>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-sm-10 position-relative">
+
+      <div class="card p-4 shadow-lg fondo-negro">
+
+        <div class="vidas">
+          Vidas: {{ vidas }}
+        </div>
+
+        <h2 class="text-center mb-4" *ngIf="juegoTerminado">
+          Puntaje final: {{ puntos }}
+        </h2>
+
+        <div class="text-center mb-4" *ngIf="cartaActual">
+          <div class="carta">
+            <img [src]="obtenerImagenPalo(cartaActual.palo)" alt="{{ cartaActual.palo }}" class="palo">
+            <div class="valor">{{ cartaActual.valor }}</div>
+          </div>
+        </div>
+
+        <div class="text-center mb-4">
+          <p>
+            <span *ngIf="jugadaAcertada !== null">{{ jugadaAcertada ? 'Jugada anterior:  ✅' : 'Jugada anterior: ❌' }}</span>
+          </p>
+        </div>
+
+        <div class="text-center mb-4 siguiente-carta">
+          <p>La siguiente carta es...</p>
+        </div>
+
+        <div class="teclado d-flex flex-wrap justify-content-center gap-2 mb-4">
+          <button (click)="verificarEleccion('menor')" class="btn btn-violet">Menor</button>
+          <button (click)="verificarEleccion('mayor')" class="btn btn-violet">Mayor</button>
+        </div>
+
+        <div class="estado text-center mt-3">
+          <p>Puntaje: {{ puntos }}</p>
+          <button *ngIf="juegoTerminado" (click)="iniciarJuego()" class="btn btn-secondary-violet">Reiniciar</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
