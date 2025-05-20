@@ -11,7 +11,7 @@ import { palabras } from './array-de-palabras';
 })
 
 export class AhorcadoComponent {
-  // palabra: string = 'SALAME';
+  // palabra: string = 'PIKITINO';
   palabra = this.obtenerPalabraAleatoria();
   palabraSecreta: string[] = [];
   letrasFallidas: string[] = [];

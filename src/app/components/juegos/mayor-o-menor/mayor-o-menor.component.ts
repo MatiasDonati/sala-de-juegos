@@ -5,6 +5,7 @@ import { SupabaseService } from '../../../services/supabase.service';
 
 import { HeaderComponent } from "../../header/header.component";
 import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 interface Carta {
@@ -39,7 +40,8 @@ export class MayorOMenorComponent {
 
   constructor(
     private authService: AuthService,
-    private supabaseService: SupabaseService
+    private supabaseService: SupabaseService,
+    private router: Router
   ) {
     this.iniciarJuego();
     this.obtenerUsuario();
@@ -126,7 +128,8 @@ export class MayorOMenorComponent {
 
   async guardarPuntaje(): Promise<void> {
     if (!this.usuarioEmail) {
-      console.warn('No hay usuario logueado. No se guarda el puntaje.');
+      console.log('No hay usuario logueado. No se guarda el puntaje.');
+      
       return;
     }
 
@@ -141,5 +144,9 @@ export class MayorOMenorComponent {
 
   obtenerImagenPalo(palo: string): string {
     return `/cartas/${palo.toLowerCase()}.png`;
+  }
+
+  irALogin() {
+     this.router.navigate(['/login']);
   }
 }

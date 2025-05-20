@@ -6,9 +6,14 @@
 
       <div class="game-container p-4 shadow-lg fondo-negro">
 
-        <div class="vidas">
-          Vidas: {{ vidas }}
+      <div class="top-bar d-flex justify-content-between align-items-center mb-3">
+        <div class="vidas">Vidas: {{ vidas }}</div>
+
+        <div *ngIf="!usuarioEmail" class="login">
+          <p>Sumá tus puntos!</p>
+          <button (click)="irALogin()" class="btn-violet">Logeate aca</button>
         </div>
+      </div>
 
         <div *ngIf="juegoTerminado" class="puntaje-final text-center mb-4">
           <h2>Puntaje final: {{ puntos }}</h2>
@@ -33,13 +38,13 @@
         </div>
 
         <div class="teclado d-flex justify-content-center gap-2 mb-4">
-          <button (click)="verificarEleccion('menor')" class="btn btn-violet">Menor</button>
-          <button (click)="verificarEleccion('mayor')" class="btn btn-violet">Mayor</button>
+          <button (click)="verificarEleccion('menor')" class="btn-violet">Menor</button>
+          <button (click)="verificarEleccion('mayor')" class="btn-violet">Mayor</button>
         </div>
 
         <div class="estado text-center mt-3">
           <p>Puntaje: {{ puntos }}</p>
-          <button *ngIf="juegoTerminado" (click)="iniciarJuego()" class="btn btn-secondary-violet">Reiniciar</button>
+          <button (click)="iniciarJuego()" class="btn-secondary-violet">Reiniciar</button>
         </div>
 
       </div>
