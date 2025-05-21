@@ -1,5 +1,5 @@
 .container {
-  background: rgba(0, 0, 0, 0.6); /* Fondo semitransparente */
+  background: rgba(0, 0, 0, 0.6);
   padding: 40px;
   border-radius: 20px;
   color: #ffffff;
@@ -11,12 +11,12 @@ h2 {
   font-size: 2rem;
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  color: #e0b3ff; /* Violeta claro */
+  color: #e0b3ff;
   margin-bottom: 30px;
 }
 
 .card {
-  background-color: rgba(138, 43, 226, 0.3); /* Fondo violeta semitransparente */
+  background-color: rgba(138, 43, 226, 0.3);
   border: none;
   backdrop-filter: blur(10px);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -37,7 +37,7 @@ h2 {
 }
 
 .btn-primary {
-  background-color: #8A2BE2; /* Violeta */
+  background-color: #8A2BE2;
   border: none;
   color: #ffffff;
   padding: 10px 20px;

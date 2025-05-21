@@ -1,10 +1,19 @@
 
 - Incorporar el chat: ☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
 
-- Ver Servicio de login en header !
+- Ver Servicio de login en header ! (nose porq utilice outpu e input, lo dejo para utilizar distintas maneras de llegar lo mismo)
 
-- Ahorcado:
- no debe ingresar datos desde el tecaldo, utilizar botones para el ingreso de las letras. no tiene que dejar tocar mas de una vez la misma tecla.
+- Ahorcado:☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
+ no debe ingresar datos desde el tecaldo, ☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
+ utilizar botones para el ingreso de las letras. ☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
+ no tiene que dejar tocar mas de una vez la misma tecla.☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
 
-- Mayor o menor: 
- desde un mazo de cartas se va preguntado si la siguiente es mayor o menor. El jugador suma puntos anda cada carta q adivine.
+- Mayor o menor: ☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
+  Desde un mazo de carta se va a preguntar si la siguiente es mayor o menor.☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
+  El jugador sumará un punto ante cada carta que adivine.☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
+
+
+Q informe q si no estas logueado no sumas puntos
+Q informe q si no estas logueado no sumas puntos
+Q informe q si no estas logueado no sumas puntos
+Q informe q si no estas logueado no sumas puntos

@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   }
 
   jugarMayorMenor() {
-    this.router.navigate(['/juegos/mayor-menor']);
+    this.router.navigate(['/juegos/mayor-o-menor']);
   }
 
   jugarPreguntados() {

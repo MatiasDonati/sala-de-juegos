@@ -33,4 +33,22 @@ export class SupabaseService {
       console.error('Error al guardar el mensaje:', error);
     }
   }
+  async guardarPuntaje(tabla: string, email: string, puntaje: number): Promise<void> {
+    try {
+      const { data, error } = await supabase
+        .from(tabla)
+        .insert([{ email, puntaje }])
+        .select();
+
+      if (error) {
+        console.error(`Error al guardar el puntaje en ${tabla}:`, error.message);
+      } else {
+        console.log(`Puntaje guardado en ${tabla}:`, data);
+      }
+
+    } catch (err) {
+      console.error('Error en la inserción del puntaje:', err);
+    }
+  }
+
 }

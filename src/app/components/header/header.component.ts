@@ -18,16 +18,11 @@ export class HeaderComponent implements OnInit {
   
   constructor(private authService: AuthService, private router: Router) {}
 
-  /**
-   * En el `ngOnInit`, consultamos al servicio si hay un usuario logueado.
-   */
+
   async ngOnInit() {
     await this.verificarUsuario();
   }
 
-  /**
-   * Verifica si hay usuario logueado y actualiza el estado del header.
-   */
   async verificarUsuario() {
     try {
       this.userEmail = await this.authService.obtenerUsuarioActual();
@@ -38,9 +33,6 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  /**
-   * Cierra la sesión y redirige al login.
-   */
   async cerrarSesion() {
     try {
       await this.authService.cerrarSesion();
