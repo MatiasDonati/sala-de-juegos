@@ -20,7 +20,7 @@ export class AuthService {
       const { data, error } = await supabase.auth.getUser();
 
       if (error) {
-        console.error('Error al obtener el usuario actual:', error.message);
+        // console.error('Error al obtener el usuario actual:', error.message);
         this.userEmail = null;
         return null;
       }

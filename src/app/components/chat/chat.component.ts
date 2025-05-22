@@ -13,6 +13,7 @@ import { HeaderComponent } from "../header/header.component";
   styleUrl: './chat.component.css',
 })
 export class ChatComponent {
+
   @ViewChild('chatBox') chatBox!: ElementRef;
 
   supabaseService = inject(SupabaseService);
@@ -23,18 +24,20 @@ export class ChatComponent {
   usuarioEmai : string | null = null;
 
   constructor() {
-    this.cargarMensajes();
+
+    // this.cargarMensajesPasados();
+
     this.suscribirseAInsert();
     this.obtenerUsuario();
   }
 
-  async cargarMensajes() {
+  async cargarMensajesPasados() {
     try {
       const data = await this.supabaseService.traerMensajes();
       this.mensajes.set(data);
       this.scrollToBottom();
     } catch (error) {
-      console.error('Error al cargar los mensajes:', error);
+      // console.error('Error al cargar los mensajes:', error);
     }
   }
 
@@ -46,7 +49,7 @@ export class ChatComponent {
         this.usuarioEmai = email;
       }
     } catch (error) {
-      console.error('Error al obtener el usuario:', error);
+      // console.error('Error al obtener el usuario:', error);
     }
   }
 
@@ -57,7 +60,7 @@ export class ChatComponent {
         this.mensaje = '';
         this.scrollToBottom();
       } catch (error) {
-        console.error('Error al enviar el mensaje:', error);
+        // console.error('Error al enviar el mensaje:', error);
       }
     }
   }
@@ -73,8 +76,8 @@ export class ChatComponent {
         table: 'mensajes-del-chat',
       },
       (cambio) => {
-        console.log('Nuevo mensaje recibido:', cambio.new?.['mensaje']);
-        console.log('Objeto Mensaje:', cambio.new);
+        // console.log('Nuevo mensaje recibido:', cambio.new?.['mensaje']);
+        // console.log('Objeto Mensaje:', cambio.new);
         this.mensajes.set([...this.mensajes(), cambio.new]);
         this.scrollToBottom();
       }

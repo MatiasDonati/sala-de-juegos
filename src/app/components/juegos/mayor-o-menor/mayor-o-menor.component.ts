@@ -129,11 +129,10 @@ export class MayorOMenorComponent {
   async guardarPuntaje(): Promise<void> {
     if (!this.usuarioEmail) {
       console.log('No hay usuario logueado. No se guarda el puntaje.');
-      
       return;
     }
 
-    console.log(`Guardando puntaje en ${this.tablaPuntajes}:`, this.usuarioEmail, this.puntos);
+    console.log(`Guardando puntaje en la tabla ${this.tablaPuntajes}, Usuario: ${this.usuarioEmail} Puntaje: ${this.puntos}`);
 
     try {
       await this.supabaseService.guardarPuntaje(this.tablaPuntajes, this.usuarioEmail, this.puntos);

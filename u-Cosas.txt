@@ -17,3 +17,9 @@ Q informe q si no estas logueado no sumas puntos
 Q informe q si no estas logueado no sumas puntos
 Q informe q si no estas logueado no sumas puntos
 Q informe q si no estas logueado no sumas puntos
+
+
+Evitar la creación múltiple del cliente de Supabase en distintos componentes, 
+y centralizar la obtención de sesión/autenticación del usuario en un único servicio.
+Depurar codigo...
+
