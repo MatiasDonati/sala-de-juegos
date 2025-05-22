@@ -20,8 +20,8 @@
     </div>
     
     <div class="chat-input">
-      <input [(ngModel)]="mensaje" placeholder="Escribí un mensaje..." />
-      <button (click)="enviar()" class="btn-violet">Enviar</button>
+      <input [(ngModel)]="mensaje" placeholder="Escribí un mensaje..." (keydown.enter)="enviar()"/>
+      <button (click)="enviar()" (keydown.enter)="enviar()" class="btn-violet">Enviar</button>
     </div>
   </div>
 </div>
