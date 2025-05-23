@@ -8,9 +8,6 @@
  utilizar botones para el ingreso de las letras. ☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
  no tiene que dejar tocar mas de una vez la misma tecla.☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
 
- PONER PUNTOS PARA EL logueado
- PONER PUNTOS PARA EL logueado
- PONER PUNTOS PARA EL logueado
 
  ------------------------------------------------------------------------------------------------------------
  ------------------------------------------------------------------------------------------------------------
@@ -18,12 +15,6 @@
 - Mayor o menor: ☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
   Desde un mazo de carta se va a preguntar si la siguiente es mayor o menor.☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
   El jugador sumará un punto ante cada carta que adivine.☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
-
-  ARREGLAR que si una carta sale no puede volver a salir... llevarlo a la realidad !
-  ARREGLAR que si una carta sale no puede volver a salir... llevarlo a la realidad !
-
-  Hacer un array para pushear las q salen y si la que vuelve a salir esta ahi, tira otra.
-  Hacer un array para pushear las q salen y si la que vuelve a salir esta ahi, tira otra.
 
  ------------------------------------------------------------------------------------------------------------
  ------------------------------------------------------------------------------------------------------------
@@ -35,3 +26,10 @@ Depurar codigo...
 
  ------------------------------------------------------------------------------------------------------------
  ------------------------------------------------------------------------------------------------------------
+
+ Cambiar fecha a la de BS AS en chat.
+
+ ------------------------------------------------------------------------------------------------------------
+ ------------------------------------------------------------------------------------------------------------
+
+ 
