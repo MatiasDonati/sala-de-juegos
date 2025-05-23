@@ -1,25 +1,37 @@
 
 - Incorporar el chat: ☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
 
-- Ver Servicio de login en header ! (nose porq utilice outpu e input, lo dejo para utilizar distintas maneras de llegar lo mismo)
+- Ver Servicio de login en header ! ( porq utilice outpu e input, lo dejo para utilizar distintas maneras de llegar lo mismo)
 
 - Ahorcado:☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
  no debe ingresar datos desde el tecaldo, ☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
  utilizar botones para el ingreso de las letras. ☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
  no tiene que dejar tocar mas de una vez la misma tecla.☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
 
+ PONER PUNTOS PARA EL logueado
+ PONER PUNTOS PARA EL logueado
+ PONER PUNTOS PARA EL logueado
+
+ ------------------------------------------------------------------------------------------------------------
+ ------------------------------------------------------------------------------------------------------------
+
 - Mayor o menor: ☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
   Desde un mazo de carta se va a preguntar si la siguiente es mayor o menor.☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
   El jugador sumará un punto ante cada carta que adivine.☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️
 
+  ARREGLAR que si una carta sale no puede volver a salir... llevarlo a la realidad !
+  ARREGLAR que si una carta sale no puede volver a salir... llevarlo a la realidad !
 
-Q informe q si no estas logueado no sumas puntos
-Q informe q si no estas logueado no sumas puntos
-Q informe q si no estas logueado no sumas puntos
-Q informe q si no estas logueado no sumas puntos
+  Hacer un array para pushear las q salen y si la que vuelve a salir esta ahi, tira otra.
+  Hacer un array para pushear las q salen y si la que vuelve a salir esta ahi, tira otra.
+
+ ------------------------------------------------------------------------------------------------------------
+ ------------------------------------------------------------------------------------------------------------
 
 
 Evitar la creación múltiple del cliente de Supabase en distintos componentes, 
 y centralizar la obtención de sesión/autenticación del usuario en un único servicio.
 Depurar codigo...
 
+ ------------------------------------------------------------------------------------------------------------
+ ------------------------------------------------------------------------------------------------------------

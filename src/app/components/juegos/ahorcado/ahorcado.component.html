@@ -5,9 +5,34 @@
     <div class="col-lg-6 col-md-8 col-sm-10">
       <div class="card p-4 shadow-lg">
 
+      <div class="top-bar d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <div class="intentos">Intentos Restantes: {{ intentosRestantes }}</div>
+          <div class="puntaje">Puntaje: {{ puntos }}</div>
+
+        </div>
+        <div></div>
+
+        <div *ngIf="!usuarioEmail" class="login d-flex align-items-center gap-2">
+          <span class="m-0">Sumá tus puntos!</span>
+          <button (click)="irALogin()" class="btn-violet">Logeate acá</button>
+        </div>
+      </div>
+
+
         <h2 class="text-center mb-4">
-          <span *ngIf="juegoGanado">Ganaste!</span>
+        
+         
+          <div>
+            <span *ngIf="juegoGanado">Ganaste!</span>
+          </div>
+
+          <span *ngIf="juegoGanado && cuentaRegresiva > 0" class="text-violet">
+            Nueva palabra en {{ cuentaRegresiva }} segundos...
+          </span>
+
           <span *ngIf="juegoPerdido" class="text-danger">Perdiste. La palabra era: {{ palabra }}</span>
+
         </h2>
 
         <div class="text-center mb-4">
@@ -28,7 +53,7 @@
         </div>
 
         <div class="text-center mt-3">
-          <button (click)="reiniciarJuego()" class="btn btn-secondary-violet">Reiniciar</button>
+          <button (click)="reiniciarJuego()" class="btn btn-secondary-violet">Volver a Jugar</button>
         </div>
       </div>
     </div>

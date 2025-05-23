@@ -71,3 +71,26 @@
   width: 100px;
   height: auto;
 }
+.text-violet {
+  color: #8a2be2;
+  font-weight: bold;
+}
+
+.login {
+  text-align: right;
+}
+.btn-violet {
+  background-color: #8A2BE2;
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  margin-left: 10px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+.btn-violet:hover {
+  background-color: #7A26C4;
+  transform: translateY(-2px);
+}
+
