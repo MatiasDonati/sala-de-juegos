@@ -33,3 +33,12 @@ Depurar codigo...
  ------------------------------------------------------------------------------------------------------------
 
  
+ MELODIA
+
+ CAMBIAR OCTAVA, PONERLE REVERB, CAMBIAR FORMA DE ONDA 
+
+
+import { AuthService } from '../../services/auth.service';
+     this.userEmail = await this.authService.obtenerUsuarioActual();
+
+
