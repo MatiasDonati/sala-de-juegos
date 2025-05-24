@@ -28,6 +28,3 @@ https://sala-de-juegos-813cc.web.app/
 ng build --configuration production
 
 firebase deploy
-
-
-

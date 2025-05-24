@@ -1,2 +1,40 @@
 <app-header></app-header>
-<p>preguntados works!</p>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-sm-10">
+      <div class="card p-4 shadow-lg text-center">
+
+        <div class="d-flex justify-content-center gap-2 mb-3">
+          <div  class="info-box">
+            Vidas: {{ vidas }}
+          </div>
+          <div class="info-box">
+            Puntos: {{ puntos }}
+          </div>
+        </div>
+
+          <button *ngIf="vidas === 0" class="btn btn-reiniciar mx-auto mb-3" (click)="reiniciarJuego()">
+            Reiniciar
+          </button>
+
+
+        <span *ngIf="darMensaje" class="pregunta"> {{ mensaje }} </span>
+        <span *ngIf="vidas === 0" class="pregunta"> {{ mensaje }} </span>
+
+        <img [src]="preguntaActual?.imagen" [alt]="preguntaActual?.correcta" class="img-fluid rounded shadow mb-4 personaje-img" />
+        <div class="pregunta">Quien es?</div>
+        <div *ngFor="let opcion of preguntaActual?.opciones">
+          
+          <button 
+            class="btn btn-violet w-100 mb-2" 
+            (click)="verificarRespuesta(opcion)" 
+            [disabled]="respuestasDeshabilitadas || vidas === 0">
+            {{ opcion }}
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
