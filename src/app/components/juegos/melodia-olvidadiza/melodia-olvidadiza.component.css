@@ -96,14 +96,19 @@
   border: 1px solid #333;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.4);
+  padding-bottom: 8px;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s;
+  transition: background-color 0.2s, transform 0.2s, color 0.2s;
 }
 
 .nota:hover {
   background-color: #e0b3ff;
+  color: rgba(0, 0, 0, 0.8);
 }
+
 
 .nota:active {
   background-color: #c9a1ff;

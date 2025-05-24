@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../../header/header.component";
 import { NgFor, NgIf } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
+import { SupabaseService } from '../../../services/supabase.service';
+
 
 @Component({
   selector: 'app-melodia-olvidadiza',
-  imports: [HeaderComponent, NgFor, NgIf],
+  imports: [HeaderComponent, NgFor],
   templateUrl: './melodia-olvidadiza.component.html',
   styleUrl: './melodia-olvidadiza.component.css'
 })
@@ -22,6 +25,14 @@ export class MelodiaOlvidadizaComponent {
     C2: 523.25,
   };
 
+  async ngOnInit() {
+    this.usuarioEmail = await this.authService.obtenerUsuarioActual();
+    console.log(this.usuarioEmail)
+  }
+
+  constructor(private authService: AuthService, private supabaseService: SupabaseService,
+) {}
+
   secuencia: string[] = [];
   notasTocadas: string[] = [];
   verificandoNotas: boolean = false;
@@ -30,6 +41,10 @@ export class MelodiaOlvidadizaComponent {
 
   puntos: number = 0;
   intentos: number = 3;
+
+  usuarioEmail: string | null = null;
+
+    tablaPuntajes: string = 'puntajes-melodia-olvidadiza';
 
 
   generarSecuencia(length: number): void {
@@ -47,7 +62,7 @@ export class MelodiaOlvidadizaComponent {
       setTimeout(() => {
         this.reproducirNota(nota);
 
-        // Al final de la secuencia, se habilita el teclado
+        // Al final de la secuencia se habilita el teclado
         if (index === this.secuencia.length - 1) {
           setTimeout(() => {
             this.verificandoNotas = false;
@@ -60,15 +75,29 @@ export class MelodiaOlvidadizaComponent {
 
 
   reproducirNota(nota: string): void {
-    // console.log(`(Auto) Tocando: ${nota}`);
+
     const oscilador = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
+    const delay = audioContext.createDelay();
+    delay.delayTime.value = 0.5; // 200ms de retardo
+
     oscilador.frequency.value = this.frecuencias[nota];
-    oscilador.type = 'sine';
+
+     oscilador.type = 'sine';         // Onda senoidal (suave, fundamental pura)
+    // oscilador.type = 'square';    // Onda cuadrada (áspera, suena a 8-bit / chiptune)
+    // oscilador.type = 'triangle';  // Onda triangular (suave, pero con más armónicos que sine)
+    // oscilador.type = 'sawtooth';  // Onda sierra (muy brillante, rica en armónicos)
+
 
     oscilador.connect(gainNode);
     gainNode.connect(audioContext.destination);
+
+    // // Mezcla con delay (eco)
+    // gainNode.connect(delay);
+    // delay.connect(audioContext.destination);
+
+
     gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
 
     oscilador.start();
@@ -98,7 +127,7 @@ export class MelodiaOlvidadizaComponent {
   }
 
 
-  chekearSecuencia(): void {
+  async chekearSecuencia(): Promise<void> {
     if (this.notasTocadas.length === this.secuencia.length) {
       const esCorrecta = this.notasTocadas.every(
         (nota, index) => nota === this.secuencia[index]
@@ -109,6 +138,7 @@ export class MelodiaOlvidadizaComponent {
       if (esCorrecta) {
         console.log('Secuencia Correcta!');
         this.mensaje = '¡Bien hecho!';
+        this.puntos += this.secuencia.length * 10;
         setTimeout(() => {
           this.secuencia.push(this.notas[Math.floor(Math.random() * this.notas.length)]);
           console.log('Nueva nota agregada, secuencia:', this.secuencia);
@@ -120,16 +150,36 @@ export class MelodiaOlvidadizaComponent {
         console.log('Secuencia INCORRECTA!');
         this.intentos -= 1;
         this.mensaje = this.intentos > 0 ? 'Intentalo de nuevo' : 'PERDISTE ¡Juego terminado!';
-        this.notasTocadas = [];
         this.verificandoNotas = true;
-        
+
+        if (this.intentos === 0) {
+          await this.guardarPuntaje();
+          this.mensaje = '¡Puntaje guardado!';
+        }
+
         setTimeout(() => {
           if (this.intentos > 0) {
             this.reproducirSecuencia();
           }
         }, 2000);
-
       }
+    }
+  }
+
+  async guardarPuntaje(): Promise<void> {
+    if (!this.usuarioEmail) {
+      console.log('No hay usuario logueado. No se guarda el puntaje.');
+      return;
+    }
+
+    console.log(
+      `Guardando puntaje en la tabla ${this.tablaPuntajes}, Usuario: ${this.usuarioEmail} Puntaje: ${this.puntos}`
+    );
+
+    try {
+      await this.supabaseService.guardarPuntaje(this.tablaPuntajes, this.usuarioEmail, this.puntos);
+    } catch (error) {
+      console.error('Error al guardar el puntaje:', error);
     }
   }
 
@@ -142,8 +192,6 @@ reiniciarJuego(): void {
   this.puntos = 0;
   this.intentos = 3;
 }
-
-
 
 
 }

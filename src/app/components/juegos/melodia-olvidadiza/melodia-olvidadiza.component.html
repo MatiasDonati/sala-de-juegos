@@ -2,16 +2,13 @@
 
 <div class="container-gral">
 
-  <!-- Título del juego -->
   <p class="titulo-juego">Melodía Olvidadiza</p>
 
-  <!-- Puntaje e Intentos -->
   <div class="stats-container">
     <div class="info-box">Puntaje: {{ puntos }}</div>
     <div class="info-box">Intentos: {{ intentos }}</div>
   </div>
 
-  <!-- Botón para iniciar -->
   <button 
     (click)="generarSecuencia(3)" 
     class="btn-generar"
@@ -19,14 +16,12 @@
     Generar Secuencia
   </button>
 
-<!-- Mensaje (si no hay, igual mantiene el lugar) -->
 <div 
   class="mensaje" 
   [style.visibility]="mensaje ? 'visible' : 'hidden'">
-  {{ mensaje }} <!-- carácter invisible para evitar colapso -->
+  {{ mensaje }}
 </div>
 
-<!-- Botón Reintentar (oculto visualmente, pero ocupa lugar) -->
 <button 
   class="btn-reintentar" 
   (click)="reiniciarJuego()"
@@ -34,8 +29,6 @@
   Jugar de Nuevo
 </button>
 
-
-  <!-- Teclado -->
   <div class="piano">
     <div 
       class="nota" 
