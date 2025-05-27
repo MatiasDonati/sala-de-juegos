@@ -9,6 +9,11 @@
     <div class="info-box">Intentos: {{ intentos }}</div>
   </div>
 
+  <button class="btn-generar" (click)="usarColores = !usarColores">
+    {{ usarColores ? 'Desactivar colores' : 'Activar colores' }}
+  </button>
+
+
   <button 
     (click)="generarSecuencia(3)" 
     class="btn-generar"
@@ -16,22 +21,23 @@
     Generar Secuencia
   </button>
 
-<div 
-  class="mensaje" 
-  [style.visibility]="mensaje ? 'visible' : 'hidden'">
-  {{ mensaje }}
-</div>
+  <div 
+    class="mensaje" 
+    [style.visibility]="mensaje ? 'visible' : 'hidden'">
+    {{ mensaje }}
+  </div>
 
-<button 
-  class="btn-reintentar" 
-  (click)="reiniciarJuego()"
-  [style.visibility]="intentos === 0 ? 'visible' : 'hidden'">
-  Jugar de Nuevo
-</button>
+  <button 
+    class="btn-reintentar" 
+    (click)="reiniciarJuego()"
+    [style.visibility]="intentos === 0 ? 'visible' : 'hidden'">
+    Jugar de Nuevo
+  </button>
 
   <div class="piano">
     <div 
       class="nota" 
+      [ngClass]="usarColores ? nota.toLowerCase() : ''"
       *ngFor="let nota of notas" 
       (click)="!verificandoNotas && tocarNota(nota)" 
       [class.desactivada]="verificandoNotas">

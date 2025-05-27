@@ -125,3 +125,44 @@
   from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+.c {
+  background-color: #FF0000;
+  color: white;
+}
+
+.d {
+  background-color: #FF7F00;
+  color: white;
+}
+
+.e {
+  background-color: #FFFF00;
+  color: black;
+}
+
+.f {
+  background-color: #00FF00;
+  color: black;
+}
+
+.g {
+  background-color: #00BFFF;
+  color: white;
+}
+
+.a {
+  background-color: #0000FF;
+  color: white;
+}
+
+.b {
+  background-color: #8B00FF;
+  color: white;
+}
+
+.c2 {
+  background-color: #FF1493;
+  color: white;
+}
+

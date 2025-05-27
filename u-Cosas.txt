@@ -40,10 +40,19 @@ Depurar codigo...
  CAMBIAR OCTAVA, PONERLE REVERB, CAMBIAR FORMA DE ONDA 
  CAMBIAR OCTAVA, PONERLE REVERB, CAMBIAR FORMA DE ONDA 
 
- PONERLE PUNTAJE A MELODIA
- PONERLE PUNTAJE A MELODIA
- PONERLE PUNTAJE A MELODIA
- PONERLE PUNTAJE A MELODIA
+PONER COMO EL CLICK PERO CUANDO SUENA LA SECUENCIA, OPCIONAL !
+PONER COMO EL CLICK PERO CUANDO SUENA LA SECUENCIA, OPCIONAL !
+PONER COMO EL CLICK PERO CUANDO SUENA LA SECUENCIA, OPCIONAL !
+PONER COMO EL CLICK PERO CUANDO SUENA LA SECUENCIA, OPCIONAL !
+
+boton para reverb.
+boton para reverb.
+boton para reverb.
+
+
+Si pifia en la secuencia quiza cortarlo ahi mismo.,..
+Si pifia en la secuencia quiza cortarlo ahi mismo.,..
+Si pifia en la secuencia quiza cortarlo ahi mismo.,..
 
 
 import { AuthService } from '../../services/auth.service';

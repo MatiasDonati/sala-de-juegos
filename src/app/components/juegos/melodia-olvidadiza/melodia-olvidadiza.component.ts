@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../../header/header.component";
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { SupabaseService } from '../../../services/supabase.service';
 
 
 @Component({
   selector: 'app-melodia-olvidadiza',
-  imports: [HeaderComponent, NgFor],
+  imports: [HeaderComponent, NgFor, NgClass],
   templateUrl: './melodia-olvidadiza.component.html',
   styleUrl: './melodia-olvidadiza.component.css'
 })
@@ -44,7 +44,11 @@ export class MelodiaOlvidadizaComponent {
 
   usuarioEmail: string | null = null;
 
-    tablaPuntajes: string = 'puntajes-melodia-olvidadiza';
+  tablaPuntajes: string = 'puntajes-melodia-olvidadiza';
+
+  usarColores: boolean = false;
+
+  notaActiva: string | null = null;
 
 
   generarSecuencia(length: number): void {
@@ -183,15 +187,16 @@ export class MelodiaOlvidadizaComponent {
     }
   }
 
-reiniciarJuego(): void {
-  this.secuencia = [];
-  this.notasTocadas = [];
-  this.mensaje = '';
-  this.verificandoNotas = false;
-  this.juegoIniciado = false;
-  this.puntos = 0;
-  this.intentos = 3;
-}
+  reiniciarJuego(): void {
+    this.secuencia = [];
+    this.notasTocadas = [];
+    this.mensaje = '';
+    this.verificandoNotas = false;
+    this.juegoIniciado = false;
+    this.puntos = 0;
+    this.intentos = 3;
+  }
+  
 
 
 }
