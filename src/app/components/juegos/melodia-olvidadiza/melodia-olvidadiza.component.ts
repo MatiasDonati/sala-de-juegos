@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../../header/header.component";
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { SupabaseService } from '../../../services/supabase.service';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-melodia-olvidadiza',
-  imports: [HeaderComponent, NgFor, NgClass],
+  imports: [HeaderComponent, NgFor, NgClass, FormsModule],
   templateUrl: './melodia-olvidadiza.component.html',
   styleUrl: './melodia-olvidadiza.component.css'
 })
@@ -41,14 +42,19 @@ export class MelodiaOlvidadizaComponent {
 
   puntos: number = 0;
   intentos: number = 3;
-
   usuarioEmail: string | null = null;
-
   tablaPuntajes: string = 'puntajes-melodia-olvidadiza';
-
   usarColores: boolean = false;
+  ayudaVisual: boolean = false;
 
   notaActiva: string | null = null;
+
+  botonApretadoSecuencia: boolean = false;
+
+  
+  tipoOnda: OscillatorType = 'sine';
+
+  usarDelay: boolean = false;
 
 
   generarSecuencia(length: number): void {
@@ -64,7 +70,20 @@ export class MelodiaOlvidadizaComponent {
 
     this.secuencia.forEach((nota, index) => {
       setTimeout(() => {
+
+        // Si el botón de ayuda visual está activado, se muestra la nota como activa
+        if (this.botonApretadoSecuencia) {
+          this.notaActiva = nota;
+        }
+
         this.reproducirNota(nota);
+
+        // Si se activa visualmente, se desactiva después de 300ms
+        if (this.botonApretadoSecuencia) {
+          setTimeout(() => {
+            this.notaActiva = null;
+          }, 300);
+        }
 
         // Al final de la secuencia se habilita el teclado
         if (index === this.secuencia.length - 1) {
@@ -72,41 +91,44 @@ export class MelodiaOlvidadizaComponent {
             this.verificandoNotas = false;
           }, 300);
         }
+
+        // PODRIA DISMINUiR O AUMENTAR EL TIEMPO DE ESPERA ENTRE NOTAS PARA DAR MAS PUNTAJE
+        // PODRIA DISMINUiR O AUMENTAR EL TIEMPO DE ESPERA ENTRE NOTAS PARA DAR MAS PUNTAJE
       }, index * 500);
     });
   }
 
 
 
-  reproducirNota(nota: string): void {
 
+  reproducirNota(nota: string): void {
     const oscilador = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
-    const delay = audioContext.createDelay();
-    delay.delayTime.value = 0.5; // 200ms de retardo
-
     oscilador.frequency.value = this.frecuencias[nota];
+    oscilador.type = this.tipoOnda;
 
-     oscilador.type = 'sine';         // Onda senoidal (suave, fundamental pura)
-    // oscilador.type = 'square';    // Onda cuadrada (áspera, suena a 8-bit / chiptune)
-    // oscilador.type = 'triangle';  // Onda triangular (suave, pero con más armónicos que sine)
-    // oscilador.type = 'sawtooth';  // Onda sierra (muy brillante, rica en armónicos)
+    // Sin efectos
+    if (!this.usarDelay) {
+      oscilador.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+    } else {
+      // Con delay
+      const delayNode = audioContext.createDelay();
+      delayNode.delayTime.value = 0.5;
 
-
-    oscilador.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-
-    // // Mezcla con delay (eco)
-    // gainNode.connect(delay);
-    // delay.connect(audioContext.destination);
-
+      oscilador.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      gainNode.connect(delayNode);
+      delayNode.connect(audioContext.destination);
+    }
 
     gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
 
     oscilador.start();
     setTimeout(() => oscilador.stop(), 300);
   }
+
   
   tocarNota(nota: string): void {
 
@@ -158,7 +180,9 @@ export class MelodiaOlvidadizaComponent {
 
         if (this.intentos === 0) {
           await this.guardarPuntaje();
-          this.mensaje = '¡Puntaje guardado!';
+          if(this.usuarioEmail){
+            this.mensaje = '¡Puntaje guardado!';
+          }
         }
 
         setTimeout(() => {

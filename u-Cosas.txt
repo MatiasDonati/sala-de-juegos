@@ -40,20 +40,11 @@ Depurar codigo...
  CAMBIAR OCTAVA, PONERLE REVERB, CAMBIAR FORMA DE ONDA 
  CAMBIAR OCTAVA, PONERLE REVERB, CAMBIAR FORMA DE ONDA 
 
-PONER COMO EL CLICK PERO CUANDO SUENA LA SECUENCIA, OPCIONAL !
-PONER COMO EL CLICK PERO CUANDO SUENA LA SECUENCIA, OPCIONAL !
-PONER COMO EL CLICK PERO CUANDO SUENA LA SECUENCIA, OPCIONAL !
-PONER COMO EL CLICK PERO CUANDO SUENA LA SECUENCIA, OPCIONAL !
-
-boton para reverb.
-boton para reverb.
-boton para reverb.
-
+        // PODRIA DISMINUiR O AUMENTAR EL TIEMPO DE ESPERA ENTRE NOTAS PARA DAR MAS PUNTAJE
+        // PODRIA DISMINUiR O AUMENTAR EL TIEMPO DE ESPERA ENTRE NOTAS PARA DAR MAS PUNTAJE
 
 Si pifia en la secuencia quiza cortarlo ahi mismo.,..
 Si pifia en la secuencia quiza cortarlo ahi mismo.,..
-Si pifia en la secuencia quiza cortarlo ahi mismo.,..
-
 
 import { AuthService } from '../../services/auth.service';
      this.userEmail = await this.authService.obtenerUsuarioActual();

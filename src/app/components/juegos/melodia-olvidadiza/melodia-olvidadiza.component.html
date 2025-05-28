@@ -21,6 +21,25 @@
     Generar Secuencia
   </button>
 
+  <button class="btn-generar" (click)="botonApretadoSecuencia = !botonApretadoSecuencia">
+    {{ botonApretadoSecuencia ? 'Ocultar secuencia en teclas' : 'Mostrar secuencia en teclas' }}
+  </button>
+  <div class="config-sonido">
+    <label>
+      Tipo de Onda:
+      <select [(ngModel)]="tipoOnda">
+        <option value="sine">Sinusoidal</option>
+        <option value="square">Cuadrada</option>
+        <option value="triangle">Triangular</option>
+        <option value="sawtooth">Diente de sierra	</option>
+      </select>
+    </label>
+
+    <label>
+      <input type="checkbox" [(ngModel)]="usarDelay" />
+      Delay
+    </label>
+  </div>
   <div 
     class="mensaje" 
     [style.visibility]="mensaje ? 'visible' : 'hidden'">
@@ -34,15 +53,22 @@
     Jugar de Nuevo
   </button>
 
+
+
   <div class="piano">
+
     <div 
       class="nota" 
-      [ngClass]="usarColores ? nota.toLowerCase() : ''"
+      [ngClass]="[
+        usarColores ? nota.toLowerCase() : '',
+        nota === notaActiva ? 'activa' : ''
+      ]"
       *ngFor="let nota of notas" 
-      (click)="!verificandoNotas && tocarNota(nota)" 
+      (click)="!verificandoNotas && tocarNota(nota)"
       [class.desactivada]="verificandoNotas">
       {{ nota }}
     </div>
+
   </div>
 
 </div>
