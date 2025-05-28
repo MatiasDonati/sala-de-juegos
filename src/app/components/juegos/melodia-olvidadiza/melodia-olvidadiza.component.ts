@@ -28,7 +28,6 @@ export class MelodiaOlvidadizaComponent {
 
   async ngOnInit() {
     this.usuarioEmail = await this.authService.obtenerUsuarioActual();
-    console.log(this.usuarioEmail)
   }
 
   constructor(private authService: AuthService, private supabaseService: SupabaseService,
@@ -44,13 +43,12 @@ export class MelodiaOlvidadizaComponent {
   intentos: number = 3;
   usuarioEmail: string | null = null;
   tablaPuntajes: string = 'puntajes-melodia-olvidadiza';
-  usarColores: boolean = false;
+  usarColores: boolean = true;
   ayudaVisual: boolean = false;
 
   notaActiva: string | null = null;
 
   botonApretadoSecuencia: boolean = false;
-
   
   tipoOnda: OscillatorType = 'sine';
 
@@ -130,69 +128,113 @@ export class MelodiaOlvidadizaComponent {
   }
 
   
-  tocarNota(nota: string): void {
-
+  async tocarNota(nota: string): Promise<void> {
     this.reproducirNota(nota);
 
-    if (this.secuencia.length === 0) {
+    if (this.secuencia.length === 0 || this.verificandoNotas) {
       return;
     }
 
-    if (this.notasTocadas.length >= this.secuencia.length) {
-      return;
-    }
+    const indexActual = this.notasTocadas.length;
+    const notaEsperada = this.secuencia[indexActual];
 
     this.notasTocadas.push(nota);
-    console.log(this.notasTocadas);
+
+    if (nota !== notaEsperada) {
+      console.log('Nota incorrecta');
+
+      this.intentos--;
+      this.mensaje = this.intentos > 0 ? 'Nota incorrecta. Escucha con antencion' : 'PERDISTE';
+      this.verificandoNotas = true;
+
+      if (this.intentos === 0) {
+        await this.guardarPuntaje();
+        if (this.usuarioEmail) {
+          this.mensaje = '¡Puntaje guardado!';
+        }
+      }
+
+      setTimeout(() => {
+        this.notasTocadas = [];
+        this.verificandoNotas = false;
+        if (this.intentos > 0) {
+          this.mensaje = '';
+          this.reproducirSecuencia();
+        }
+      }, 1500);
+
+      return;
+    }
+
+    console.log('Nota correcta');
 
     if (this.notasTocadas.length === this.secuencia.length) {
       this.verificandoNotas = true;
-      console.log('mismas cantidad q secuencia')
-      this.chekearSecuencia();
+      this.mensaje = 'Perfecto';
+      this.puntos += this.secuencia.length * 10;
+
+      setTimeout(() => {
+        this.secuencia.push(this.notas[Math.floor(Math.random() * this.notas.length)]);
+        console.log('Nueva nota agregada:', this.secuencia);
+        this.notasTocadas = [];
+        this.verificandoNotas = false;
+        this.mensaje = '';
+        this.reproducirSecuencia();
+      }, 1500);
     }
   }
 
 
-  async chekearSecuencia(): Promise<void> {
-    if (this.notasTocadas.length === this.secuencia.length) {
-      const esCorrecta = this.notasTocadas.every(
-        (nota, index) => nota === this.secuencia[index]
-      );
 
-      this.notasTocadas = [];
+  // async chekearSecuencia(): Promise<void> {
 
-      if (esCorrecta) {
-        console.log('Secuencia Correcta!');
-        this.mensaje = '¡Bien hecho!';
-        this.puntos += this.secuencia.length * 10;
-        setTimeout(() => {
-          this.secuencia.push(this.notas[Math.floor(Math.random() * this.notas.length)]);
-          console.log('Nueva nota agregada, secuencia:', this.secuencia);
-          this.verificandoNotas = false;
-          this.mensaje = '';
-          this.reproducirSecuencia();
-        }, 2000);
-      } else {
-        console.log('Secuencia INCORRECTA!');
-        this.intentos -= 1;
-        this.mensaje = this.intentos > 0 ? 'Intentalo de nuevo' : 'PERDISTE ¡Juego terminado!';
-        this.verificandoNotas = true;
 
-        if (this.intentos === 0) {
-          await this.guardarPuntaje();
-          if(this.usuarioEmail){
-            this.mensaje = '¡Puntaje guardado!';
-          }
-        }
+  //   for (let index = 0; index < this.notasTocadas.length; index++) {
+  //     if(this.notasTocadas[index] === this.secuencia[index]){
+  //       console.log('Dale Papu!!!')
+  //     }
+      
+  //   }
 
-        setTimeout(() => {
-          if (this.intentos > 0) {
-            this.reproducirSecuencia();
-          }
-        }, 2000);
-      }
-    }
-  }
+  //   if (this.notasTocadas.length === this.secuencia.length) {
+  //     const esCorrecta = this.notasTocadas.every(
+  //       (nota, index) => nota === this.secuencia[index]
+  //     );
+
+  //     this.notasTocadas = [];
+
+  //     if (esCorrecta) {
+  //       console.log('Secuencia Correcta!');
+  //       this.mensaje = '¡Bien hecho!';
+  //       this.puntos += this.secuencia.length * 10;
+  //       setTimeout(() => {
+  //         this.secuencia.push(this.notas[Math.floor(Math.random() * this.notas.length)]);
+  //         console.log('Nueva nota agregada, secuencia:', this.secuencia);
+  //         this.verificandoNotas = false;
+  //         this.mensaje = '';
+  //         this.reproducirSecuencia();
+  //       }, 2000);
+  //     } else {
+  //       console.log('Secuencia INCORRECTA!');
+  //       this.intentos -= 1;
+  //       this.mensaje = this.intentos > 0 ? 'Intentalo de nuevo' : 'PERDISTE ¡Juego terminado!';
+  //       this.verificandoNotas = true;
+
+  //       if (this.intentos === 0) {
+  //         await this.guardarPuntaje();
+  //         if(this.usuarioEmail){
+  //           this.mensaje = '¡Puntaje guardado!';
+  //         }
+  //       }
+
+  //       setTimeout(() => {
+  //         if (this.intentos > 0) {
+  //           this.reproducirSecuencia();
+  //         }
+  //       }, 2000);
+  //     }
+  //   }
+  // }
 
   async guardarPuntaje(): Promise<void> {
     if (!this.usuarioEmail) {
