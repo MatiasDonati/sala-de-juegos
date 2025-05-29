@@ -96,7 +96,7 @@ export class PreguntadosComponent {
 
     if (esCorrecta) {
       this.puntos += 10;
-      this.mensaje = '¡Correcto! Siguiente personaje...';
+      this.mensaje = '¡Correcto!';
 
       if (this.personajeActualIndex !== -1) {
         this.PERSONAJES.splice(this.personajeActualIndex, 1);
