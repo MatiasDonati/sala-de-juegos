@@ -103,6 +103,9 @@ export class MelodiaOlvidadizaComponent {
     const oscilador = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
+    // console.log(nota)
+    // console.log(this.frecuencias[nota])
+
     oscilador.frequency.value = this.frecuencias[nota];
     oscilador.type = this.tipoOnda;
 

@@ -116,9 +116,10 @@ export class PreguntadosComponent {
 
       //TESTEO GANAR RAPIDO!
       //TESTEO GANAR RAPIDO!
-
-      const noHayMasPersonajes = 0;
+      //TESTEO GANAR RAPIDO!
       const ganarRapido = 17;
+      
+      const noHayMasPersonajes = 0;
 
       if (this.PERSONAJES.length === noHayMasPersonajes && this.vidas > 0) {
 
