@@ -14,6 +14,33 @@
           </div>
         </div>
 
+        <div class="mb-4">
+          <button 
+            class="btn btn-violet me-2" 
+            [ngClass]="{ 'activo': nivelJuego === 17 }"
+            [disabled]="nivelJuego === 17"
+            (click)="setearNivel(17)">
+            Fácil
+          </button>
+
+          <button 
+            class="btn btn-violet me-2" 
+            [ngClass]="{ 'activo': nivelJuego === 10 }"
+            [disabled]="nivelJuego === 10"
+            (click)="setearNivel(10)">
+            Medio
+          </button>
+
+          <button 
+            class="btn btn-violet" 
+            [ngClass]="{ 'activo': nivelJuego === 0 }"
+            [disabled]="nivelJuego === 0"
+            (click)="setearNivel(0)">
+            Difícil
+          </button>
+
+        </div>
+
           <button *ngIf="vidas === 0 || mensaje === '¡Felicitaciones! Ganaste.'" class="btn btn-reiniciar mx-auto mb-3" (click)="reiniciarJuego()">
             Jugar de Nuevo
           </button>
@@ -32,8 +59,11 @@
             [disabled]="respuestasDeshabilitadas || vidas === 0">
             {{ opcion }}
           </button>
-
         </div>
+        
+        <!-- <button *ngIf="vidas > 0" class="btn btn-reiniciar mx-auto mb-3" (click)="reiniciarJuego()">
+          Jugar de Nuevo
+        </button> -->
       </div>
     </div>
   </div>

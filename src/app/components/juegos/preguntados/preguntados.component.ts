@@ -1,24 +1,22 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../../header/header.component";
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { PersonajesService, Personaje } from '../../../services/personajes.service';
 import { AuthService } from '../../../services/auth.service';
 import { SupabaseService } from '../../../services/supabase.service';
 
 @Component({
   selector: 'app-preguntados',
-  imports: [HeaderComponent, NgFor, NgIf],
+  imports: [HeaderComponent, NgFor, NgIf, NgClass],
   templateUrl: './preguntados.component.html',
   styleUrl: './preguntados.component.css'
 })
-
 export class PreguntadosComponent {
 
   constructor(
     private personajesService: PersonajesService,
     private authService: AuthService,
     private supabaseService: SupabaseService,
-    
   ) {
     this.obtenerUsuario();
   }
@@ -29,22 +27,26 @@ export class PreguntadosComponent {
   usuarioEmail: string | null = null;
   puntos: number = 0;
   vidas: number = 3;
-
   respuestasDeshabilitadas: boolean = false;
-
   tablaPuntajes: string = 'puntajes-preguntados';
 
   PERSONAJES: Personaje[] = [];
-
   personajesIniciales: Personaje[] = [];
 
+  nivelJuego: number  = 17; 
+  niveles: { [key: number]: string } = {
+  17: 'Nivel Fácil',
+  10: 'Nivel Medio',
+  0: 'Nivel Difícil',
+};
+
+  personajeActualIndex: number = -1;
 
   preguntaActual: {
     imagen: string;
     opciones: string[];
     correcta: string;
   } | null = null;
-
 
   ngOnInit() {
     this.personajesService.obtenerPersonajes().subscribe((personajes) => {
@@ -54,25 +56,25 @@ export class PreguntadosComponent {
     });
   }
 
-
-  
   cargarNuevaPregunta() {
 
-      console.log(this.PERSONAJES.length)
+    console.log(this.niveles[this.nivelJuego]);
+    console.log(this.PERSONAJES.length)
 
     if (this.PERSONAJES.length < 1) {
-
       this.mensaje = '¡No hay más preguntas!';
       this.darMensaje = true;
       this.respuestasDeshabilitadas = true;
       return;
     }
 
-    const indiceCorrecto = Math.floor(Math.random() * this.PERSONAJES.length);
-    const correcto = this.PERSONAJES.splice(indiceCorrecto, 1)[0];
+    this.personajeActualIndex = Math.floor(Math.random() * this.PERSONAJES.length);
+    const correcto = this.PERSONAJES[this.personajeActualIndex];
 
-    const personajesRestantes = [...this.PERSONAJES];
-    const incorrectas = personajesRestantes.sort(() => 0.5 - Math.random()).slice(0, 3);
+    const incorrectas = this.personajesIniciales
+      .filter(p => p.nombre !== correcto.nombre)
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 3);
 
     const opciones = [...incorrectas.map(p => p.nombre), correcto.nombre]
       .sort(() => 0.5 - Math.random());
@@ -86,7 +88,6 @@ export class PreguntadosComponent {
     console.log(`Respuesta: ${this.preguntaActual?.correcta}`);
   }
 
-
   verificarRespuesta(opcion: string) {
     if (this.respuestasDeshabilitadas || this.vidas <= 0) return;
 
@@ -97,6 +98,14 @@ export class PreguntadosComponent {
     if (esCorrecta) {
       this.puntos += 10;
       this.mensaje = '¡Correcto! Siguiente personaje...';
+
+      // Si adivina saco el personaje de PERSONAJES
+      // Si adivina saco el personaje de PERSONAJES
+
+      if (this.personajeActualIndex !== -1) {
+        this.PERSONAJES.splice(this.personajeActualIndex, 1);
+      }
+
     } else {
       this.vidas -= 1;
 
@@ -112,19 +121,9 @@ export class PreguntadosComponent {
     this.darMensaje = true;
 
     setTimeout(() => {
-
-
-      //TESTEO GANAR RAPIDO!
-      //TESTEO GANAR RAPIDO!
-      //TESTEO GANAR RAPIDO!
-      const ganarRapido = 17;
-      
-      const noHayMasPersonajes = 0;
-
-      if (this.PERSONAJES.length === 4 && this.vidas > 0) {
-
-        this.mensaje = '¡Felicitaciones! Ganaste.';
-
+      if (this.PERSONAJES.length < this.nivelJuego && this.vidas > 0) {
+        this.mensaje = `¡Felicitaciones! Ganaste. ${this.vidas * 10} puntos extras por ${this.vidas} vidas restantes`;
+        this.puntos = this.puntos + this.vidas * 10
         this.guardarPuntaje();
         this.darMensaje = true;
         this.respuestasDeshabilitadas = true;
@@ -136,7 +135,7 @@ export class PreguntadosComponent {
     }, 2500);
   }
 
-    async obtenerUsuario(): Promise<void> {
+  async obtenerUsuario(): Promise<void> {
     try {
       this.usuarioEmail = await this.authService.obtenerUsuarioActual();
       console.log('Usuario logueado:', this.usuarioEmail);
@@ -145,7 +144,7 @@ export class PreguntadosComponent {
     }
   }
 
-    async guardarPuntaje(): Promise<void> {
+  async guardarPuntaje(): Promise<void> {
     if (!this.usuarioEmail) {
       console.log('No hay usuario logueado. No se guarda el puntaje.');
       return;
@@ -162,13 +161,18 @@ export class PreguntadosComponent {
     }
   }
 
-    reiniciarJuego(): void {
+  setearNivel(valor: number): void {
+    this.nivelJuego = valor;
+    this.reiniciarJuego();
+  }
+
+  reiniciarJuego(): void {
     this.PERSONAJES = [...this.personajesIniciales];
     this.puntos = 0;
     this.vidas = 3;
     this.mensaje = '';
     this.respuestasDeshabilitadas = false;
+    this.personajeActualIndex = -1;
     this.cargarNuevaPregunta();
   }
-
 }
