@@ -121,7 +121,7 @@ export class PreguntadosComponent {
       
       const noHayMasPersonajes = 0;
 
-      if (this.PERSONAJES.length === noHayMasPersonajes && this.vidas > 0) {
+      if (this.PERSONAJES.length === 4 && this.vidas > 0) {
 
         this.mensaje = '¡Felicitaciones! Ganaste.';
 
