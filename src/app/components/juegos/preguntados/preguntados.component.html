@@ -6,7 +6,7 @@
       <div class="card p-4 shadow-lg text-center">
 
         <div class="d-flex justify-content-center gap-2 mb-3">
-          <div  class="info-box">
+          <div class="info-box">
             Vidas: {{ vidas }}
           </div>
           <div class="info-box">
@@ -38,32 +38,41 @@
             (click)="setearNivel(0)">
             Difícil
           </button>
-
         </div>
 
-          <button *ngIf="vidas === 0 || mensaje === '¡Felicitaciones! Ganaste.'" class="btn btn-reiniciar mx-auto mb-3" (click)="reiniciarJuego()">
-            Jugar de Nuevo
-          </button>
-
-
-        <span *ngIf="darMensaje" class="pregunta"> {{ mensaje }} </span>
-        <span *ngIf="vidas === 0" class="pregunta"> {{ mensaje }} </span>
-
-        <img [src]="preguntaActual?.imagen" [alt]="preguntaActual?.correcta" class="img-fluid rounded shadow mb-4 personaje-img" />
-        <div class="pregunta">Quien es?</div>
-        <div *ngFor="let opcion of preguntaActual?.opciones">
-          
-          <button 
-            class="btn btn-violet w-100 mb-2" 
-            (click)="verificarRespuesta(opcion)" 
-            [disabled]="respuestasDeshabilitadas || vidas === 0">
-            {{ opcion }}
-          </button>
+        <div *ngIf="preguntaConteo <= preguntasRestantes" class="pregunta">
+          {{ preguntaConteo }} / {{ preguntasRestantes }}
         </div>
-        
-        <!-- <button *ngIf="vidas > 0" class="btn btn-reiniciar mx-auto mb-3" (click)="reiniciarJuego()">
+
+        <span *ngIf="darMensaje || juegoTerminado" class="pregunta">
+          {{ mensaje }}
+        </span>
+
+        <img 
+          *ngIf="preguntaActual" 
+          [src]="preguntaActual.imagen" 
+          [alt]="preguntaActual.correcta" 
+          class="img-fluid rounded shadow mb-4 personaje-img" />
+
+        <div *ngIf="!juegoTerminado && preguntaActual">
+          <div class="pregunta">¿Quién es?</div>
+          <div *ngFor="let opcion of preguntaActual.opciones">
+            <button 
+              class="btn btn-violet w-100 mb-2" 
+              (click)="verificarRespuesta(opcion)" 
+              [disabled]="respuestasDeshabilitadas || vidas === 0">
+              {{ opcion }}
+            </button>
+          </div>
+        </div>
+
+        <button 
+          *ngIf="juegoTerminado || vidas === 0" 
+          class="btn btn-reiniciar mx-auto mt-4" 
+          (click)="reiniciarJuego()">
           Jugar de Nuevo
-        </button> -->
+        </button>
+
       </div>
     </div>
   </div>

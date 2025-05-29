@@ -1,81 +1,74 @@
 .card {
   background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 15px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
+  border-radius: 12px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
+  padding: 20px;
 }
-h2 {
-  font-size: 2rem;
-  font-weight: bold;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  color: #e0b3ff;
-  margin-bottom: 30px;
-}
-span.mb-4 {
-  display: block;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #e0b3ff;
 
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
-.pregunta {
+h2 {
   font-size: 1.5rem;
   font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
   color: #e0b3ff;
   margin-bottom: 20px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
 }
 
+span.mb-4, .pregunta {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #e0b3ff;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
 
 .personaje-img {
-  max-height: 400px;
+  max-height: 280px;
   object-fit: contain;
+  margin-bottom: 20px;
 }
 
 .info-box {
   background-color: #8A2BE2;
   color: white;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: bold;
-  padding: 6px 12px;
-  border-radius: 20px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
-  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 16px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
+.btn-violet, .btn-reiniciar {
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  border-radius: 8px;
+}
 
 .btn-violet {
   background-color: #8A2BE2;
   border: none;
   color: #fff;
-  padding: 10px;
-  font-weight: bold;
-  border-radius: 8px;
   text-transform: uppercase;
   transition: background-color 0.3s, transform 0.3s;
 }
 
 .btn-violet:hover {
   background-color: #7A26C4;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .btn-violet:active {
   background-color: #6A1FA7;
-  transform: translateY(0px);
+  transform: translateY(0);
 }
+
 .btn-reiniciar {
   background-color: #d29bff;
   color: #732ae2;
   font-weight: bold;
-  font-size: 0.95rem;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 12px;
   text-transform: uppercase;
   transition: background-color 0.3s, transform 0.2s;
 }
@@ -94,5 +87,4 @@ span.mb-4 {
   background-color: #ffffff;
   color: #8A2BE2;
   border: 2px solid #8A2BE2;
-  font-weight: bold;
 }

@@ -34,11 +34,15 @@ export class PreguntadosComponent {
   personajesIniciales: Personaje[] = [];
 
   nivelJuego: number  = 17; 
+  preguntasRestantes: number = 4;
+  preguntaConteo: number = 1;
+  juegoTerminado: boolean = false;
+
   niveles: { [key: number]: string } = {
-  17: 'Nivel Fácil',
-  10: 'Nivel Medio',
-  0: 'Nivel Difícil',
-};
+    17: 'Nivel Fácil',
+    10: 'Nivel Medio',
+    0: 'Nivel Difícil',
+  };
 
   personajeActualIndex: number = -1;
 
@@ -57,10 +61,6 @@ export class PreguntadosComponent {
   }
 
   cargarNuevaPregunta() {
-
-    console.log(this.niveles[this.nivelJuego]);
-    console.log(this.PERSONAJES.length)
-
     if (this.PERSONAJES.length < 1) {
       this.mensaje = '¡No hay más preguntas!';
       this.darMensaje = true;
@@ -70,6 +70,8 @@ export class PreguntadosComponent {
 
     this.personajeActualIndex = Math.floor(Math.random() * this.PERSONAJES.length);
     const correcto = this.PERSONAJES[this.personajeActualIndex];
+
+    console.log(correcto.nombre)
 
     const incorrectas = this.personajesIniciales
       .filter(p => p.nombre !== correcto.nombre)
@@ -84,34 +86,29 @@ export class PreguntadosComponent {
       opciones,
       correcta: correcto.nombre,
     };
-
-    console.log(`Respuesta: ${this.preguntaActual?.correcta}`);
   }
 
   verificarRespuesta(opcion: string) {
-    if (this.respuestasDeshabilitadas || this.vidas <= 0) return;
+    if (this.respuestasDeshabilitadas || this.vidas <= 0 || this.juegoTerminado) return;
 
     this.respuestasDeshabilitadas = true;
-
     const esCorrecta = opcion === this.preguntaActual?.correcta;
 
     if (esCorrecta) {
       this.puntos += 10;
       this.mensaje = '¡Correcto! Siguiente personaje...';
 
-      // Si adivina saco el personaje de PERSONAJES
-      // Si adivina saco el personaje de PERSONAJES
-
       if (this.personajeActualIndex !== -1) {
         this.PERSONAJES.splice(this.personajeActualIndex, 1);
       }
-
     } else {
       this.vidas -= 1;
 
       if (this.vidas <= 0) {
         this.mensaje = '¡Juego terminado! Has perdido todas tus vidas.';
         this.guardarPuntaje();
+        this.juegoTerminado = true;
+        this.darMensaje = true;
         return;
       }
 
@@ -121,38 +118,35 @@ export class PreguntadosComponent {
     this.darMensaje = true;
 
     setTimeout(() => {
-      if (this.PERSONAJES.length < this.nivelJuego && this.vidas > 0) {
+      this.preguntaConteo++;
+
+      if (this.preguntaConteo > this.preguntasRestantes || this.PERSONAJES.length === 0) {
         this.mensaje = `¡Felicitaciones! Ganaste. ${this.vidas * 10} puntos extras por ${this.vidas} vidas restantes`;
-        this.puntos = this.puntos + this.vidas * 10
+        this.puntos += this.vidas * 10;
         this.guardarPuntaje();
         this.darMensaje = true;
         this.respuestasDeshabilitadas = true;
+        this.juegoTerminado = true;
       } else {
         this.cargarNuevaPregunta();
         this.respuestasDeshabilitadas = false;
         this.darMensaje = false;
       }
     }, 2500);
+
+
   }
 
   async obtenerUsuario(): Promise<void> {
     try {
       this.usuarioEmail = await this.authService.obtenerUsuarioActual();
-      console.log('Usuario logueado:', this.usuarioEmail);
     } catch (error) {
       console.error('Error al obtener el usuario:', error);
     }
   }
 
   async guardarPuntaje(): Promise<void> {
-    if (!this.usuarioEmail) {
-      console.log('No hay usuario logueado. No se guarda el puntaje.');
-      return;
-    }
-
-    console.log(
-      `Guardando puntaje en la tabla ${this.tablaPuntajes}, Usuario: ${this.usuarioEmail} Puntaje: ${this.puntos}`
-    );
+    if (!this.usuarioEmail) return;
 
     try {
       await this.supabaseService.guardarPuntaje(this.tablaPuntajes, this.usuarioEmail, this.puntos);
@@ -163,16 +157,28 @@ export class PreguntadosComponent {
 
   setearNivel(valor: number): void {
     this.nivelJuego = valor;
+
+    if (valor === 17) {
+      this.preguntasRestantes = 4;
+    } else if (valor === 10) {
+      this.preguntasRestantes = 10;
+    } else {
+      this.preguntasRestantes = 20;
+    }
+
     this.reiniciarJuego();
   }
 
   reiniciarJuego(): void {
     this.PERSONAJES = [...this.personajesIniciales];
+    this.preguntaConteo = 1;
     this.puntos = 0;
     this.vidas = 3;
     this.mensaje = '';
+    this.darMensaje = false;
     this.respuestasDeshabilitadas = false;
     this.personajeActualIndex = -1;
+    this.juegoTerminado = false;
     this.cargarNuevaPregunta();
   }
 }
