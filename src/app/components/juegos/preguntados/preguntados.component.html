@@ -14,8 +14,8 @@
           </div>
         </div>
 
-          <button *ngIf="vidas === 0" class="btn btn-reiniciar mx-auto mb-3" (click)="reiniciarJuego()">
-            Reiniciar
+          <button *ngIf="vidas === 0 || mensaje === '¡Felicitaciones! Ganaste.'" class="btn btn-reiniciar mx-auto mb-3" (click)="reiniciarJuego()">
+            Jugar de Nuevo
           </button>
 
 
