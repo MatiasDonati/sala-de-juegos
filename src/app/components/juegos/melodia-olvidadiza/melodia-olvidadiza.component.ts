@@ -43,6 +43,7 @@ export class MelodiaOlvidadizaComponent {
   intentos: number = 3;
   usuarioEmail: string | null = null;
   tablaPuntajes: string = 'puntajes-melodia-olvidadiza';
+
   usarColores: boolean = true;
   ayudaVisual: boolean = false;
 
@@ -69,21 +70,20 @@ export class MelodiaOlvidadizaComponent {
     this.secuencia.forEach((nota, index) => {
       setTimeout(() => {
 
-        // Si el botón de ayuda visual está activado, se muestra la nota como activa
         if (this.botonApretadoSecuencia) {
           this.notaActiva = nota;
         }
 
         this.reproducirNota(nota);
 
-        // Si se activa visualmente, se desactiva después de 300ms
         if (this.botonApretadoSecuencia) {
           setTimeout(() => {
             this.notaActiva = null;
           }, 300);
         }
 
-        // Al final de la secuencia se habilita el teclado
+        // AL FINAL DE LA SECUENCIA VIELVE EL TECLADO
+        // AL FINAL DE LA SECUENCIA VIELVE EL TECLADO
         if (index === this.secuencia.length - 1) {
           setTimeout(() => {
             this.verificandoNotas = false;
@@ -97,8 +97,6 @@ export class MelodiaOlvidadizaComponent {
   }
 
 
-
-
   reproducirNota(nota: string): void {
     const oscilador = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
@@ -109,12 +107,14 @@ export class MelodiaOlvidadizaComponent {
     oscilador.frequency.value = this.frecuencias[nota];
     oscilador.type = this.tipoOnda;
 
-    // Sin efectos
+    // SIN DELAY
+    // SIN DELAY
     if (!this.usarDelay) {
       oscilador.connect(gainNode);
       gainNode.connect(audioContext.destination);
     } else {
-      // Con delay
+      // CON DELAY
+      // CON DELAY
       const delayNode = audioContext.createDelay();
       delayNode.delayTime.value = 0.5;
 
@@ -132,14 +132,16 @@ export class MelodiaOlvidadizaComponent {
 
   
   async tocarNota(nota: string): Promise<void> {
+
     this.reproducirNota(nota);
 
     if (this.secuencia.length === 0 || this.verificandoNotas) {
       return;
     }
-
+    
     const indexActual = this.notasTocadas.length;
     const notaEsperada = this.secuencia[indexActual];
+    
 
     this.notasTocadas.push(nota);
 

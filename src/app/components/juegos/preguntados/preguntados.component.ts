@@ -33,11 +33,11 @@ export class PreguntadosComponent {
   PERSONAJES: Personaje[] = [];
   personajesIniciales: Personaje[] = [];
 
-  nivelJuego: number  = 17; 
   preguntasRestantes: number = 4;
   preguntaConteo: number = 1;
   juegoTerminado: boolean = false;
-
+  
+  nivelJuego: number  = 17; 
   niveles: { [key: number]: string } = {
     17: 'Nivel Fácil',
     10: 'Nivel Medio',
@@ -89,6 +89,7 @@ export class PreguntadosComponent {
   }
 
   verificarRespuesta(opcion: string) {
+    
     if (this.respuestasDeshabilitadas || this.vidas <= 0 || this.juegoTerminado) return;
 
     this.respuestasDeshabilitadas = true;
@@ -118,6 +119,7 @@ export class PreguntadosComponent {
     this.darMensaje = true;
 
     setTimeout(() => {
+
       this.preguntaConteo++;
 
       if (this.preguntaConteo > this.preguntasRestantes || this.PERSONAJES.length === 0) {
