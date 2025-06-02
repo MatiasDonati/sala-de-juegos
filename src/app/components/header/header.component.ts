@@ -15,7 +15,6 @@ export class HeaderComponent implements OnInit {
   userEmail: string | null = null;
   mostrarLoginRegister: boolean = false;
   title = 'Sala de Juegos';
-  
   constructor(private authService: AuthService, private router: Router) {}
 
 
@@ -44,23 +43,8 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  irAHome() {
-    this.router.navigate(['/home']);
+  irA(ruta: string){
+    this.router.navigate([ruta]);
   }
 
-  irAQuienSoy() {
-    this.router.navigate(['/quien-soy']);
-  }
-
-  irALogin() {
-    this.router.navigate(['/login']);
-  }
-
-  irARegister() {
-    this.router.navigate(['/register']);
-  }
-
-  irAlChat() {
-    this.router.navigate(['/chat']);
-  }
 }

@@ -8,7 +8,7 @@ import { HeaderComponent } from "../header/header.component";
 
 @Component({
   selector: 'app-chat',
-  imports: [FormsModule, DatePipe, NgFor, HeaderComponent, NgIf],
+  imports: [FormsModule, NgFor, HeaderComponent, NgIf],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',
 })
@@ -21,14 +21,20 @@ export class ChatComponent {
   mensajes = signal<any[]>([]);
   miUsuario: User | null = null;
   mensaje = '';
-  usuarioEmai : string | null = null;
+  usuarioEmail : string | null = null;
+
+  tabla = 'mensajes-del-chat';
+  // tabla2 = 'mensajes-del-chat-v2';
+  
 
   constructor() {
 
-    // this.cargarMensajesPasados();
-
     this.suscribirseAInsert();
     this.obtenerUsuario();
+  }
+
+    ngOnInit(): void {
+    this.cargarMensajesPasados();
   }
 
   async cargarMensajesPasados() {
@@ -46,7 +52,7 @@ export class ChatComponent {
       const email = await this.authService.obtenerUsuarioActual();
       if (email) {
         this.miUsuario = { email } as User;
-        this.usuarioEmai = email;
+        this.usuarioEmail = email;
       }
     } catch (error) {
       // console.error('Error al obtener el usuario:', error);
@@ -73,7 +79,7 @@ export class ChatComponent {
       {
         event: 'INSERT',
         schema: 'public',
-        table: 'mensajes-del-chat',
+        table: this.tabla,
       },
       (cambio) => {
         // console.log('Nuevo mensaje recibido:', cambio.new?.['mensaje']);
@@ -99,6 +105,15 @@ export class ChatComponent {
   trackById(index: number, item: any): number {
     return item.id;
   }
+
+  private datePipe = new DatePipe('es-AR');
+
+  formatearFecha(fecha: string): string {
+    const date = new Date(fecha);
+    date.setHours(date.getHours() - 3);
+    return this.datePipe.transform(date, 'd/M/yy - h:mm a') ?? '';
+  }
+
 
 
 }

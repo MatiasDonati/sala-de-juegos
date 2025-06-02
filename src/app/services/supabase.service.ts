@@ -9,10 +9,12 @@ const supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
 })
 export class SupabaseService {
   supabase = supabase;
+  tabla = 'mensajes-del-chat';
+  
 
   async traerMensajes() {
     const { data, error } = await supabase
-      .from('mensajes-del-chat')
+      .from(this.tabla)
       .select('*')
       .order('created_at', { ascending: true });
 
@@ -26,7 +28,7 @@ export class SupabaseService {
 
   async guardarMensaje(id_usuario: string, mensaje: string) {
     const { error } = await supabase
-      .from('mensajes-del-chat')
+      .from(this.tabla)
       .insert([{ id_usuario, mensaje }]);
 
     if (error) {

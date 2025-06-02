@@ -43,4 +43,25 @@ export class AuthService {
       console.error('Error al cerrar sesión:', err);
     }
   }
+
+  async verificarUsuarioRegistrado(email: string): Promise<boolean> {
+  try {
+    const { data, error } = await supabase
+      .from('users-data')
+      .select('mail')
+      .eq('mail', email)
+      .single();
+
+    if (error && error.code !== 'PGRST116') {
+      console.error('Error al verificar el email:', error.message);
+      return false;
+    }
+
+    return !!data;
+  } catch (err) {
+    console.error('Excepción al verificar el email:', err);
+    return false;
+  }
+}
+
 }

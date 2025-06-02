@@ -11,7 +11,10 @@
               <span *ngIf="mensaje.id_usuario !== miUsuario?.email">
                 {{ mensaje.id_usuario }} - 
               </span>
-              {{ mensaje.created_at | date:'short' }}
+              {{ formatearFecha(mensaje.created_at) }}
+
+
+              <!-- {{ mensaje.created_at | date:'short' }} -->
             </p>
             <p class="texto">{{ mensaje.mensaje }}</p>
           </div>

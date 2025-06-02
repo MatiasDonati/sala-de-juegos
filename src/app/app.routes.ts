@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { canMatchGuardObtenerUsuario } from './guards/can-match.guard';
 
 export const routes: Routes = [
   { 
@@ -20,14 +21,22 @@ export const routes: Routes = [
   },
   { 
     path: 'quien-soy', 
+
     loadComponent: () => import('./components/quien-soy/quien-soy.component').then(c => c.QuienSoyComponent) 
   },
   { 
     path: 'chat', 
+    canMatch: [canMatchGuardObtenerUsuario],
     loadComponent: () => import('./components/chat/chat.component').then(c => c.ChatComponent) 
   },
   { 
     path: 'juegos',
+    canMatch: [canMatchGuardObtenerUsuario],
     loadChildren: () => import('./components/juegos/juegos-modulo/juegos.module').then(m => m.JuegosModule)
+  },
+  { 
+    path: 'encuesta',
+    canMatch: [canMatchGuardObtenerUsuario],
+    loadComponent: () => import('./components/encuesta/encuesta.component').then(m => m.EncuestaComponent)
   },
 ];

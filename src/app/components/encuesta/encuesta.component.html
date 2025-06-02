@@ -1,0 +1,113 @@
+<app-header></app-header>
+
+<div class="container mt-4 d-flex justify-content-center">
+  <div class="card bg-light-purple text-white p-4 rounded-4 shadow w-100" style="max-width: 600px;">
+    <h2 class="mb-4 text-center">Encuesta</h2>
+
+    <form [formGroup]="form" (ngSubmit)="enviarForm()">
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" formControlName="email">
+        <div *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched" class="text-danger small">
+          Campo obligatorio
+        </div>
+        <div *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched" class="text-danger small">
+          Email no válido
+        </div>
+        <div *ngIf="form.get('email')?.hasError('usuarioNoExiste') && form.get('email')?.touched" class="text-danger small">
+          {{ form.get('email')?.getError('usuarioNoExiste') }}
+        </div>
+      </div>
+
+
+      <!-- Nombre y apellido -->
+      <div class="mb-3">
+        <label class="form-label">Nombre y apellido</label>
+        <input type="text" class="form-control" formControlName="nombre">
+        <div *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched" class="text-danger small">
+          Campo obligatorio
+        </div>
+      </div>
+      
+
+      <!-- Edad -->
+      <div class="mb-3">
+        <label class="form-label">Edad</label>
+        <input type="number" class="form-control" formControlName="edad">
+
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        
+        <div *ngIf="form.get('edad')?.hasError('edadFueraDeRango') && form.get('edad')?.touched" class="text-danger small">
+          {{ form.get('edad')?.getError('edadFueraDeRango') }}
+        </div>
+
+        <!--  -->
+        <!--  -->
+        <!--  -->
+
+      </div>
+
+      <!-- Teléfono -->
+      <div class="mb-3">
+        <label class="form-label">Teléfono</label>
+        <input type="text" class="form-control" formControlName="telefono">
+        <!--  -->
+        <!--  -->
+        <!--  -->
+
+        <div *ngIf="form.get('telefono')?.hasError('telefonoInvalido') && form.get('telefono')?.touched" class="text-danger small">
+          {{ form.get('telefono')?.getError('telefonoInvalido') }}
+        </div>
+
+
+
+        <!--  -->
+        <!--  -->
+        <!--  -->
+
+      </div>
+
+      <!-- Pregunta 1: radiobutton -->
+      <div class="mb-3">
+        <label class="form-label">¿Qué juego te gustó más?</label><br>
+        <div class="form-check" *ngFor="let juego of ['Ahorcado', 'Mayor-Menor', 'Preguntados', 'Melodía Olvidadiza']">
+          <input class="form-check-input" type="radio" formControlName="juegoFavorito" [value]="juego" [id]="juego">
+          <label class="form-check-label" [for]="juego">{{ juego }}</label>
+        </div>
+        <div *ngIf="form.get('juegoFavorito')?.invalid && form.get('juegoFavorito')?.touched" class="text-danger small">
+          Seleccioná un juego
+        </div>
+      </div>
+
+      <!-- Pregunta 2: textbox (textarea) -->
+      <div class="mb-3">
+        <label class="form-label">¿Qué juego o juegos sentís que faltan en esta sala?</label>
+        <textarea class="form-control" rows="3" formControlName="juegosFaltantes"></textarea>
+        <div *ngIf="form.get('juegosFaltantes')?.invalid && form.get('juegosFaltantes')?.touched" class="text-danger small">
+          Este campo es obligatorio
+        </div>
+      </div>
+
+      <!-- Pregunta 3: checkbox -->
+      <div class="mb-3">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" formControlName="aceptaNovedades" id="aceptaNovedades">
+          <label class="form-check-label" for="aceptaNovedades">
+            Acepto recibir novedades sobre nuevos juegos
+          </label>
+        </div>
+        <div *ngIf="form.get('aceptaNovedades')?.invalid && form.get('aceptaNovedades')?.touched" class="text-danger small">
+          Tenés que aceptar para continuar
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-violet mt-3 px-4" [disabled]="form.invalid">Enviar</button>
+      </div>
+    </form>
+  </div>
+</div>
