@@ -71,4 +71,16 @@
 
   </div>
 
+  <div *ngIf="mostrarRanking" class="cuadro-puntaje" id="ranking">
+  <h3>🏆 Mejores puntajes</h3>
+
+  <ul>
+    <li *ngIf="puntajes.length === 0">Sin datos aún</li>
+    <li *ngFor="let p of puntajes">
+      {{ p.email }} - {{ p.puntos }}
+    </li>
+  </ul>
+</div>
+
+
 </div>

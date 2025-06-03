@@ -4,6 +4,12 @@ import { environment } from '../../environments/environment';
 
 const supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
 
+interface Puntaje {
+  email: string;
+  puntos: number;
+}
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -101,5 +107,26 @@ export class SupabaseService {
     }
   }
 
+  async obtenerTopPuntajes(nombreTabla: string, limite: number = 5): Promise<Puntaje[]> {
+    const { data, error } = await this.supabase
+      .from(nombreTabla)
+      .select('email, puntaje')
+      .order('puntaje', { ascending: false });
+
+    if (error || !data) {
+      console.error(`Error al obtener puntajes de ${nombreTabla}:`, error?.message);
+      return [];
+    }
+
+    const filtrados = data
+      .filter((item: any) => item.puntaje > 0)
+      .slice(0, limite)
+      .map((item: any) => ({
+        email: item.email,
+        puntos: item.puntaje
+      }));
+
+    return filtrados;
+  }
 
 }

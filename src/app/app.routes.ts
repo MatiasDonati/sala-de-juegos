@@ -39,4 +39,8 @@ export const routes: Routes = [
     canMatch: [canMatchGuardObtenerUsuario],
     loadComponent: () => import('./components/encuesta/encuesta.component').then(m => m.EncuestaComponent)
   },
+  { 
+    path: 'puntajes',
+    loadComponent: () => import('./components/puntajes/puntajes.component').then(m => m.PuntajesComponent)
+  },
 ];

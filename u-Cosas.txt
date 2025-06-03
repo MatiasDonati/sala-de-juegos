@@ -51,12 +51,10 @@ import { AuthService } from '../../services/auth.service';
 
 
 
-
 canActivate en modulo de juegos 
 si hay logueo podes entrar a juegos. 
 hacerlo en el modulo
 Ver appRpoutes .. para generar guar: ng g g "nombre"
-
 
 
 CORREGIR
@@ -70,83 +68,20 @@ MELODIA empezar de una la secuencia !! quizaaaaaaa .. sirve para ubicarse en la 
 MELODIA empezar de una la secuencia !! quizaaaaaaa .. sirve para ubicarse en la tonalidad.. VERRRR
 
 
-✅ Pasos para usar una validación async con Supabase
-🧩 1. Tener un servicio SupabaseService
-Debe tener un método que permita consultar registros en la tabla correspondiente (usuarios, encuestas, etc.).
-
-Este método devuelve una promesa o un observable con los resultados.
-
-🧩 2. Crear un validador asíncrono
-Es una función que recibe el control del formulario.
-
-Llama al método del servicio y verifica si hay coincidencias en la base de datos (por ejemplo, si un email o teléfono ya existe).
-
-Devuelve un observable que emite:
-
-null si está todo bien.
-
-Un objeto de error si hay un problema (por ejemplo, { usuarioExiste: true }).
-
-🧩 3. Asignar ese validador a un campo del formulario
-Lo hacés en el constructor del FormGroup, con asyncValidators.
-
-Debés poner también updateOn: 'blur' o change, según cuándo querés que se dispare.
-
-🧩 4. Mostrar el mensaje de error en la vista
-En el HTML del formulario, usás *ngIf="campo?.hasError('nombreError')" para mostrar un mensaje si ocurre.
-
-🧩 5. Probarlo y ajustar
-Ingresás un valor que exista → debe marcar error.
-
-Ingresás un valor nuevo → no debe marcar error.
-
-Controlás los logs de consola por si hay errores de red o estructura.
-
-
-
-ENCUENSTA 
 ENCUENSTA ☑️☑️☑️☑️☑️☑️
-ENCUENSTA 
-
-FALTA☑️☑️☑️☑️☑️☑️
-FALTA
-FALTA
-
-validator en la carpet "validators"
-validator en la carpet "validators"
-
-supabase !
-supabase !
-supabase !
-
-FALTA
-FALTA
-FALTA
-FALTA
-FALTA
-1. Validador asincrónico personalizado
-
-Verifica que el usuario (por su mail) no haya hecho ya la encuesta
-
-Consulta a la tabla encuestas por el campo mail
-Si encuentra una entrada, bloquea el envío con { encuestaYaRespondida: true }
-
-2. Guardar en Supabase
-Si pasa las validaciones, insertar en la tabla encuestas:
-
-mail (del usuario logueado)
-
-Los campos de la encuesta (nombre, edad, etc.)
+ENCUENSTA ☑️☑️☑️☑️☑️☑️
+ENCUENSTA ☑️☑️☑️☑️☑️☑️
 
 
+🚫FALTA🚫🚫FALTA🚫
+🚫FALTA🚫🚫FALTA🚫
+🚫FALTA🚫🚫FALTA🚫
+🚫FALTA🚫🚫FALTA🚫
 
+LISTA PUNTAJES
+LISTA PUNTAJES
+LISTA PUNTAJES
+LISTA PUNTAJES
 
-
-
-
-
-
- Usás RLS para proteger la tabla encuestas.
-✔️ Mantenés el campo email en el formulario, pero como referencia visual y validación secundaria.
-✔️ Verificás que ese email exista en la base de usuarios (users-data).
-✔️ Guardás la encuesta usando el email obtenido de supabase.auth.getUser(), no el del form.
+al terminar de jugar aparece el listado de puntajres, puede ser un top 5 !
+al terminar de jugar aparece el listado de puntajres, puede ser un top 5 !

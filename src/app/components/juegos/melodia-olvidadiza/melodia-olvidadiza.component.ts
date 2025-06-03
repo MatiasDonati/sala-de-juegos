@@ -1,14 +1,20 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../../header/header.component";
-import { NgClass, NgFor } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { SupabaseService } from '../../../services/supabase.service';
 import { FormsModule } from '@angular/forms';
 
 
+interface Puntaje {
+  email: string;
+  puntos: number;
+}
+
+
 @Component({
   selector: 'app-melodia-olvidadiza',
-  imports: [HeaderComponent, NgFor, NgClass, FormsModule],
+  imports: [HeaderComponent, NgFor, NgClass, FormsModule, NgIf],
   templateUrl: './melodia-olvidadiza.component.html',
   styleUrl: './melodia-olvidadiza.component.css'
 })
@@ -55,6 +61,10 @@ export class MelodiaOlvidadizaComponent {
 
   usarDelay: boolean = false;
 
+  juegoTerminado: boolean = false;
+
+  puntajes: Puntaje[] = [];
+  mostrarRanking: boolean = false;
 
   generarSecuencia(length: number): void {
     this.juegoIniciado = true;
@@ -89,7 +99,6 @@ export class MelodiaOlvidadizaComponent {
             this.verificandoNotas = false;
           }, 300);
         }
-
         // PODRIA DISMINUiR O AUMENTAR EL TIEMPO DE ESPERA ENTRE NOTAS PARA DAR MAS PUNTAJE
         // PODRIA DISMINUiR O AUMENTAR EL TIEMPO DE ESPERA ENTRE NOTAS PARA DAR MAS PUNTAJE
       }, index * 500);
@@ -135,6 +144,10 @@ export class MelodiaOlvidadizaComponent {
 
     this.reproducirNota(nota);
 
+    if (this.juegoTerminado) {
+      return;
+    }
+
     if (this.secuencia.length === 0 || this.verificandoNotas) {
       return;
     }
@@ -153,6 +166,8 @@ export class MelodiaOlvidadizaComponent {
       this.verificandoNotas = true;
 
       if (this.intentos === 0) {
+        this.juegoTerminado = true;
+        this.mostrarTop()
         await this.guardarPuntaje();
         if (this.usuarioEmail) {
           this.mensaje = '¡Puntaje guardado!';
@@ -215,8 +230,23 @@ export class MelodiaOlvidadizaComponent {
     this.juegoIniciado = false;
     this.puntos = 0;
     this.intentos = 3;
+    this.juegoTerminado = false;
+    this.mostrarRanking = false;
+
   }
-  
+
+  async mostrarTop() {
+    this.puntajes = await this.supabaseService.obtenerTopPuntajes('puntajes-melodia-olvidadiza', 5);
+    this.mostrarRanking = true;
+
+    setTimeout(() => {
+      const elemento = document.getElementById('ranking');
+      if (elemento) {
+        elemento.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  }
+
 
 
 }

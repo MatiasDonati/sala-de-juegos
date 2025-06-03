@@ -96,18 +96,17 @@ constructor(private supabaseService: SupabaseService, private usuariosService: A
 
      const ok = await this.supabaseService.guardarEncuesta(encuesta);
 
-    if (ok) {
-      this.mensaje = '¡Encuesta enviada con éxito! Muchas Gracias!';
-      console.log('Encuesta enviada con éxito!');
-      this.form.reset();
-      this.formFueEnviado = false;
-      setTimeout(() => {
-        this.router.navigate(['/home']);
-      }, 4000);
+      if (ok) {
+        this.mensaje = '¡Encuesta enviada con éxito! Muchas Gracias!';
+        console.log('Encuesta enviada con éxito!');
+        this.form.reset();
+        this.formFueEnviado = false;
+        setTimeout(() => {
+          this.router.navigate(['/home']);
+        }, 4000);
+      }
     }
   }
-}
-
 
 
 }

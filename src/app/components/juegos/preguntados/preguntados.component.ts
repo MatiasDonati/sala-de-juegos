@@ -5,6 +5,11 @@ import { PersonajesService, Personaje } from '../../../services/personajes.servi
 import { AuthService } from '../../../services/auth.service';
 import { SupabaseService } from '../../../services/supabase.service';
 
+interface Puntaje {
+  email: string;
+  puntos: number;
+}
+
 @Component({
   selector: 'app-preguntados',
   imports: [HeaderComponent, NgFor, NgIf, NgClass],
@@ -51,6 +56,9 @@ export class PreguntadosComponent {
     opciones: string[];
     correcta: string;
   } | null = null;
+
+  puntajes: Puntaje[] = [];
+  mostrarRanking: boolean = false;
 
   ngOnInit() {
     this.personajesService.obtenerPersonajes().subscribe((personajes) => {
@@ -107,6 +115,7 @@ export class PreguntadosComponent {
 
       if (this.vidas <= 0) {
         this.mensaje = '¡Juego terminado! Has perdido todas tus vidas.';
+        this.mostrarTop();
         this.guardarPuntaje();
         this.juegoTerminado = true;
         this.darMensaje = true;
@@ -171,6 +180,17 @@ export class PreguntadosComponent {
     this.reiniciarJuego();
   }
 
+  async mostrarTop() {
+  this.puntajes = await this.supabaseService.obtenerTopPuntajes(this.tablaPuntajes, 5);
+  this.mostrarRanking = true;
+
+  setTimeout(() => {
+    const el = document.getElementById('ranking');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 100);
+}
+
+
   reiniciarJuego(): void {
     this.PERSONAJES = [...this.personajesIniciales];
     this.preguntaConteo = 1;
@@ -181,6 +201,7 @@ export class PreguntadosComponent {
     this.respuestasDeshabilitadas = false;
     this.personajeActualIndex = -1;
     this.juegoTerminado = false;
+    this.mostrarRanking = false;
     this.cargarNuevaPregunta();
   }
 }

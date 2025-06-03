@@ -6,6 +6,12 @@ import { AuthService } from '../../../services/auth.service';
 import { SupabaseService } from '../../../services/supabase.service';
 import { Router } from '@angular/router';
 
+interface Puntaje {
+  email: string;
+  puntos: number;
+}
+
+
 @Component({
   selector: 'app-ahorcado',
   templateUrl: './ahorcado.component.html',
@@ -28,6 +34,10 @@ export class AhorcadoComponent {
   cuentaRegresiva: number = 0;
 
   tablaPuntajes: string = 'puntajes-ahorcado';
+
+  puntajes: Puntaje[] = [];
+  mostrarRanking: boolean = false;
+
 
   constructor(
     private authService: AuthService,
@@ -89,11 +99,13 @@ inicializarJuego(reiniciarIntentos: boolean = true): void {
     if (this.intentosRestantes === 0) {
       this.juegoTerminado = true;
       this.juegoPerdido = true;
+      this.mostrarTop();
       this.guardarPuntaje();
     }
 
     if (this.palabraSecreta.join('') === this.palabra) {
       this.juegoTerminado = true;
+      this.mostrarTop();
       this.juegoGanado = true;
       this.puntos += 100 - (6 - this.intentosRestantes) * 10;
 
@@ -139,10 +151,23 @@ inicializarJuego(reiniciarIntentos: boolean = true): void {
 
   reiniciarJuego(): void {
     this.puntos = 0;
+    this.mostrarRanking = false;
     this.inicializarJuego(true);
+
   }
 
   irALogin() {
     this.router.navigate(['/login']);
   }
+
+  async mostrarTop() {
+  this.puntajes = await this.supabaseService.obtenerTopPuntajes('puntajes-mayor-menor', 5);
+  this.mostrarRanking = true;
+
+  setTimeout(() => {
+    const el = document.getElementById('ranking');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 100);
+}
+
 }

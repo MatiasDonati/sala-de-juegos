@@ -4,7 +4,7 @@ import { AuthService } from '../../../services/auth.service';
 import { SupabaseService } from '../../../services/supabase.service';
 
 import { HeaderComponent } from "../../header/header.component";
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 
 
@@ -13,11 +13,16 @@ interface Carta {
   palo: string;
 }
 
+interface Puntaje {
+  email: string;
+  puntos: number;
+}
+
 @Component({
   selector: 'app-mayor-o-menor',
   templateUrl: './mayor-o-menor.component.html',
   styleUrls: ['./mayor-o-menor.component.css'],
-  imports: [HeaderComponent, NgIf]
+  imports: [HeaderComponent, NgIf, NgFor]
 })
 export class MayorOMenorComponent {
 
@@ -37,6 +42,9 @@ export class MayorOMenorComponent {
   palos: string[] = ['Oro', 'Basto', 'Espada', 'Copa'];
 
   tablaPuntajes: string = 'puntajes-mayor-menor';
+
+  puntajes: Puntaje[] = [];
+  mostrarRanking: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -66,6 +74,7 @@ export class MayorOMenorComponent {
     this.juegoTerminado = false;
     this.jugadaAcertada = null;
     this.esIgual = false;
+    this.mostrarRanking = false;
   }
 
   generarMazo(): Carta[] {
@@ -90,6 +99,7 @@ export class MayorOMenorComponent {
       console.log('Carta actual:', this.cartaActual);
       console.log('Carta siguiente:', this.cartaSiguiente);
     } else {
+      
       this.juegoTerminado = true;
     }
   }
@@ -119,6 +129,7 @@ export class MayorOMenorComponent {
       if (this.vidas <= 0) {
         this.juegoTerminado = true;
         this.guardarPuntaje();
+        this.mostrarTop();
       }
     }
 
@@ -148,4 +159,15 @@ export class MayorOMenorComponent {
   irALogin() {
      this.router.navigate(['/login']);
   }
+
+  async mostrarTop() {
+  this.puntajes = await this.supabaseService.obtenerTopPuntajes(this.tablaPuntajes, 5);
+  this.mostrarRanking = true;
+
+  setTimeout(() => {
+    const el = document.getElementById('ranking');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 100);
+}
+
 }

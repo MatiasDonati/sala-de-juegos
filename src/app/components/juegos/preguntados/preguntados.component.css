@@ -88,3 +88,18 @@ span.mb-4, .pregunta {
   color: #8A2BE2;
   border: 2px solid #8A2BE2;
 }
+
+.cuadro-puntaje {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  transition: transform 0.3s;
+  text-align: center;
+  margin-top: 20px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}

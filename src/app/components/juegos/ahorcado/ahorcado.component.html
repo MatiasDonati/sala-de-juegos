@@ -55,7 +55,19 @@
         <div class="text-center mt-3">
           <button (click)="reiniciarJuego()" class="btn btn-secondary-violet">Volver a Jugar</button>
         </div>
+
+        <div *ngIf="mostrarRanking" class="cuadro-puntaje" id="ranking">
+        <h3>🏆 Mejores puntajes</h3>
+        <ul>
+          <li *ngIf="puntajes.length === 0">Sin datos aún</li>
+          <li *ngFor="let p of puntajes">
+            {{ p.email }} - {{ p.puntos }}
+          </li>
+        </ul>
+      </div>
+        
       </div>
     </div>
   </div>
+
 </div>

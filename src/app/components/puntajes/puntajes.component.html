@@ -1,0 +1,18 @@
+<app-header></app-header>
+
+<div class="titulo-general">
+  <h2>🏆 Mejores 5 puntajes por juego</h2>
+</div>
+
+<div class="contenedor-puntajes">
+  <div class="cuadro-puntaje" *ngFor="let juego of juegos">
+    <h3>{{ juego.nombre }}</h3>
+
+    <ul>
+      <li *ngIf="juego.puntajes.length === 0">Sin datos aún</li>
+      <li *ngFor="let p of juego.puntajes">
+        {{ p.email }} - {{ p.puntos }}
+      </li>
+    </ul>
+  </div>
+</div>
