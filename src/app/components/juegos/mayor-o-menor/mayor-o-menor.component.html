@@ -26,24 +26,24 @@
           </div>
         </div>
 
-        <div class="text-center mb-4 jugada-anterior">
+        <div *ngIf="!juegoTerminado" class="text-center mb-4 jugada-anterior">
         <p *ngIf="jugadaAcertada !== null">
             Jugada anterior: {{ jugadaAcertada ? '✅' : '❌' }}
         </p>
         <p *ngIf="esIgual">Era igual. No se pierde ni se gana.</p>
         </div>
 
-        <div class="siguiente-carta text-center mb-4">
+        <div *ngIf="!juegoTerminado" class="siguiente-carta text-center mb-4">
           <p>La siguiente carta es...</p>
         </div>
 
-        <div class="teclado d-flex justify-content-center gap-2 mb-4">
+        <div *ngIf="!juegoTerminado" class="teclado d-flex justify-content-center gap-2 mb-4">
           <button (click)="verificarEleccion('menor')" class="btn-violet">Menor</button>
           <button (click)="verificarEleccion('mayor')" class="btn-violet">Mayor</button>
         </div>
 
         <div class="estado text-center mt-3">
-          <p>Puntaje: {{ puntos }}</p>
+          <p *ngIf="!juegoTerminado"> Puntaje: {{ puntos }}</p>
           <button (click)="iniciarJuego()" class="btn-secondary-violet">Reiniciar</button>
         </div>
         

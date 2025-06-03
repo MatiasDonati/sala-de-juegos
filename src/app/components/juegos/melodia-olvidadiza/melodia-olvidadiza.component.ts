@@ -167,8 +167,8 @@ export class MelodiaOlvidadizaComponent {
 
       if (this.intentos === 0) {
         this.juegoTerminado = true;
-        this.mostrarTop()
         await this.guardarPuntaje();
+        this.mostrarTop()
         if (this.usuarioEmail) {
           this.mensaje = '¡Puntaje guardado!';
         }

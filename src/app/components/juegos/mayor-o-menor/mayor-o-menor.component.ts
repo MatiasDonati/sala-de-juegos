@@ -92,7 +92,7 @@ export class MayorOMenorComponent {
   }
 
 
-  siguienteCarta(): void {
+  async siguienteCarta(): Promise<void> {
     if (this.mazo.length > 0) {
       this.cartaActual = this.cartaSiguiente || this.mazo.shift()!;
       this.cartaSiguiente = this.mazo.shift() || null;
@@ -100,11 +100,13 @@ export class MayorOMenorComponent {
       console.log('Carta siguiente:', this.cartaSiguiente);
     } else {
       
-      this.juegoTerminado = true;
-    }
+        this.juegoTerminado = true;
+        await this.guardarPuntaje();
+        this.mostrarTop();    
+      }
   }
 
-  verificarEleccion(eleccion: 'mayor' | 'menor'): void {
+  async verificarEleccion(eleccion: 'mayor' | 'menor'): Promise<void> {
     if (this.juegoTerminado || !this.cartaActual || !this.cartaSiguiente) return;
 
     const esMayor = this.cartaSiguiente.valor > this.cartaActual.valor;
@@ -128,7 +130,7 @@ export class MayorOMenorComponent {
 
       if (this.vidas <= 0) {
         this.juegoTerminado = true;
-        this.guardarPuntaje();
+        await this.guardarPuntaje();
         this.mostrarTop();
       }
     }

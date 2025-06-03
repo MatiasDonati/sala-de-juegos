@@ -96,7 +96,7 @@ export class PreguntadosComponent {
     };
   }
 
-  verificarRespuesta(opcion: string) {
+  async verificarRespuesta(opcion: string) {
     
     if (this.respuestasDeshabilitadas || this.vidas <= 0 || this.juegoTerminado) return;
 
@@ -115,8 +115,8 @@ export class PreguntadosComponent {
 
       if (this.vidas <= 0) {
         this.mensaje = '¡Juego terminado! Has perdido todas tus vidas.';
+        await this.guardarPuntaje();
         this.mostrarTop();
-        this.guardarPuntaje();
         this.juegoTerminado = true;
         this.darMensaje = true;
         return;
@@ -127,17 +127,18 @@ export class PreguntadosComponent {
 
     this.darMensaje = true;
 
-    setTimeout(() => {
+    setTimeout(async () => {
 
       this.preguntaConteo++;
 
       if (this.preguntaConteo > this.preguntasRestantes || this.PERSONAJES.length === 0) {
         this.mensaje = `¡Felicitaciones! Ganaste. ${this.vidas * 10} puntos extras por ${this.vidas} vidas restantes`;
         this.puntos += this.vidas * 10;
-        this.guardarPuntaje();
         this.darMensaje = true;
         this.respuestasDeshabilitadas = true;
         this.juegoTerminado = true;
+        await this.guardarPuntaje();
+        this.mostrarTop();
       } else {
         this.cargarNuevaPregunta();
         this.respuestasDeshabilitadas = false;
