@@ -119,18 +119,34 @@ supabase !
 supabase !
 supabase !
 
+FALTA
+FALTA
+FALTA
+FALTA
+FALTA
+1. Validador asincrónico personalizado
 
-✅ 1. Validador asincrónico personalizado
-Verifica que el usuario (por su email) no haya hecho ya la encuesta
+Verifica que el usuario (por su mail) no haya hecho ya la encuesta
 
 Consulta a la tabla encuestas por el campo mail
-
 Si encuentra una entrada, bloquea el envío con { encuestaYaRespondida: true }
 
-✅ 2. Guardar en Supabase
-Si pasa las validaciones, insertás en la tabla encuestas:
+2. Guardar en Supabase
+Si pasa las validaciones, insertar en la tabla encuestas:
 
 mail (del usuario logueado)
 
 Los campos de la encuesta (nombre, edad, etc.)
 
+
+
+
+
+
+
+
+
+ Usás RLS para proteger la tabla encuestas.
+✔️ Mantenés el campo email en el formulario, pero como referencia visual y validación secundaria.
+✔️ Verificás que ese email exista en la base de usuarios (users-data).
+✔️ Guardás la encuesta usando el email obtenido de supabase.auth.getUser(), no el del form.

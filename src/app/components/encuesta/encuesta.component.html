@@ -4,12 +4,24 @@
   <div class="card bg-light-purple text-white p-4 rounded-4 shadow w-100" style="max-width: 600px;">
     <h2 class="mb-4 text-center">Encuesta</h2>
 
-    <form [formGroup]="form" (ngSubmit)="enviarForm()">
+    <div *ngIf="mensaje" class="alert alert-info text-center">
+      {{ mensaje }}
+    </div>
 
-      <!-- Email -->
+    <form *ngIf="!mensaje" [formGroup]="form" (ngSubmit)="enviarForm()">
+
+
       <div class="mb-3">
         <label class="form-label">Email</label>
-        <input type="email" class="form-control" formControlName="email">
+
+        <!-- Solo lectura -->
+
+        <input type="email" class="form-control" formControlName="email" readonly>
+
+        <!--  Puede modificarse y y tiene un validador para ver si existe en Supabase -->
+
+        <!-- <input type="email" class="form-control" formControlName="email"> -->
+
         <div *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched" class="text-danger small">
           Campo obligatorio
         </div>
@@ -22,56 +34,46 @@
       </div>
 
 
-      <!-- Nombre y apellido -->
       <div class="mb-3">
-        <label class="form-label">Nombre y apellido</label>
+        <label class="form-label">Nombre</label>
         <input type="text" class="form-control" formControlName="nombre">
-        <div *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched" class="text-danger small">
+        <div *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched" class="text-danger small">
           Campo obligatorio
         </div>
+        <div *ngIf="form.get('nombre')?.hasError('nombreInvalido') && form.get('nombre')?.touched" class="text-danger small">
+          {{ form.get('nombre')?.getError('nombreInvalido') }}
+        </div>
       </div>
-      
 
-      <!-- Edad -->
+      <div class="mb-3">
+        <label class="form-label">Apellido</label>
+        <input type="text" class="form-control" formControlName="apellido">
+        <div *ngIf="form.get('apellido')?.hasError('required') && form.get('apellido')?.touched" class="text-danger small">
+          Campo obligatorio
+        </div>
+        <div *ngIf="form.get('apellido')?.hasError('nombreInvalido') && form.get('apellido')?.touched" class="text-danger small">
+          {{ form.get('apellido')?.getError('nombreInvalido') }}
+        </div>
+      </div>
+
+      
       <div class="mb-3">
         <label class="form-label">Edad</label>
         <input type="number" class="form-control" formControlName="edad">
-
-        <!--  -->
-        <!--  -->
-        <!--  -->
-        
         <div *ngIf="form.get('edad')?.hasError('edadFueraDeRango') && form.get('edad')?.touched" class="text-danger small">
           {{ form.get('edad')?.getError('edadFueraDeRango') }}
         </div>
-
-        <!--  -->
-        <!--  -->
-        <!--  -->
-
       </div>
 
-      <!-- Teléfono -->
       <div class="mb-3">
         <label class="form-label">Teléfono</label>
         <input type="text" class="form-control" formControlName="telefono">
-        <!--  -->
-        <!--  -->
-        <!--  -->
-
         <div *ngIf="form.get('telefono')?.hasError('telefonoInvalido') && form.get('telefono')?.touched" class="text-danger small">
           {{ form.get('telefono')?.getError('telefonoInvalido') }}
         </div>
-
-
-
-        <!--  -->
-        <!--  -->
-        <!--  -->
-
       </div>
 
-      <!-- Pregunta 1: radiobutton -->
+
       <div class="mb-3">
         <label class="form-label">¿Qué juego te gustó más?</label><br>
         <div class="form-check" *ngFor="let juego of ['Ahorcado', 'Mayor-Menor', 'Preguntados', 'Melodía Olvidadiza']">
@@ -83,7 +85,7 @@
         </div>
       </div>
 
-      <!-- Pregunta 2: textbox (textarea) -->
+
       <div class="mb-3">
         <label class="form-label">¿Qué juego o juegos sentís que faltan en esta sala?</label>
         <textarea class="form-control" rows="3" formControlName="juegosFaltantes"></textarea>
@@ -92,7 +94,7 @@
         </div>
       </div>
 
-      <!-- Pregunta 3: checkbox -->
+
       <div class="mb-3">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" formControlName="aceptaNovedades" id="aceptaNovedades">

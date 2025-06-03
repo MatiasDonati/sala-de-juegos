@@ -16,6 +16,6 @@
     <button *ngIf="mostrarLoginRegister" type="button" class="btn-violet" (click)="irA('register')">Registro</button>
     <button *ngIf="!mostrarLoginRegister" type="button" class="btn-violet" (click)="irA('chat')">Chat</button>
     <button type="button" class="btn-violet" (click)="irA('quien-soy')">Quién soy?</button>
-    <button type="button" class="btn-violet" (click)="irA('encuesta')">Encuesta</button>
+    <button *ngIf="!mostrarLoginRegister" type="button" class="btn-violet" (click)="irA('encuesta')">Encuesta</button>
   </div>
 </div>
