@@ -28,6 +28,7 @@ constructor(private supabaseService: SupabaseService, private usuariosService: A
   mensaje: string = '';
 
   ngOnInit(): void {
+
     this.usuariosService.obtenerUsuarioActual().then(email => {
       this.usuarioAutenticadoEmail = email;
 
@@ -59,7 +60,9 @@ constructor(private supabaseService: SupabaseService, private usuariosService: A
       ]),
       juegoFavorito: new FormControl('', Validators.required),
       juegosFaltantes: new FormControl('', Validators.required),
-      aceptaNovedades: new FormControl(false, Validators.requiredTrue)
+      aceptaNovedades: new FormControl(false, Validators.requiredTrue),
+      sugerencias: new FormControl('')
+
     });
   }
   
@@ -92,6 +95,8 @@ constructor(private supabaseService: SupabaseService, private usuariosService: A
         juego_favorito: this.form.get('juegoFavorito')?.value,
         juegos_faltantes: this.form.get('juegosFaltantes')?.value,
         acepta_novedades: this.form.get('aceptaNovedades')?.value,
+        sugerencias: this.form.get('sugerencias')?.value
+
       };
 
      const ok = await this.supabaseService.guardarEncuesta(encuesta);
