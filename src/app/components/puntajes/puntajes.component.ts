@@ -16,6 +16,7 @@ interface Puntaje {
   templateUrl: './puntajes.component.html',
   styleUrl: './puntajes.component.css'
 })
+
 export class PuntajesComponent implements OnInit {
 
   juegos: { nombre: string; tabla: string; puntajes: Puntaje[] }[] = [

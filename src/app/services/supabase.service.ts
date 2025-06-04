@@ -122,7 +122,7 @@ export class SupabaseService {
       .filter((item: any) => item.puntaje > 0)
       .slice(0, limite)
       .map((item: any) => ({
-        email: item.email,
+        email: item.email.split('@')[0],
         puntos: item.puntaje
       }));
 
