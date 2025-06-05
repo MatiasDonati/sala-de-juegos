@@ -26,6 +26,7 @@ constructor(private supabaseService: SupabaseService, private usuariosService: A
   formFueEnviado = false;
   usuarioAutenticadoEmail: string | null = null;
   mensaje: string = '';
+  mensajeEmailDistinto: string = '';
 
   ngOnInit(): void {
 
@@ -71,6 +72,12 @@ constructor(private supabaseService: SupabaseService, private usuariosService: A
     this.formFueEnviado = true;
 
     if (this.form.valid && this.usuarioAutenticadoEmail) {
+
+      if (this.form.get('email')?.value !== this.usuarioAutenticadoEmail) {
+        this.mensajeEmailDistinto = 'No podés enviar la encuesta con un email distinto al que usaste para iniciar sesión.';
+        return;
+      }
+
       
       const yaRespondio = await this.supabaseService.encuestaYaRealizada(this.usuarioAutenticadoEmail);
       

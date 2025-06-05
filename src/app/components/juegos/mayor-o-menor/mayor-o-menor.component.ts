@@ -102,7 +102,7 @@ export class MayorOMenorComponent {
       
         this.juegoTerminado = true;
         await this.guardarPuntaje();
-        this.mostrarTop();    
+        await this.mostrarTop();    
       }
   }
 

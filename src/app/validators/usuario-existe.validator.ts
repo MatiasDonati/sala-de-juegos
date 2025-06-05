@@ -12,3 +12,5 @@ export function usuarioExisteValidator(authService: AuthService): AsyncValidator
     return existe ? null : { usuarioNoExiste: 'El email no está registrado' };
   };
 }
+
+

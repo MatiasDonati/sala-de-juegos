@@ -138,7 +138,7 @@ export class PreguntadosComponent {
         this.respuestasDeshabilitadas = true;
         this.juegoTerminado = true;
         await this.guardarPuntaje();
-        this.mostrarTop();
+        await this.mostrarTop();
       } else {
         this.cargarNuevaPregunta();
         this.respuestasDeshabilitadas = false;

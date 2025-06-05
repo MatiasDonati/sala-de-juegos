@@ -95,17 +95,17 @@ inicializarJuego(reiniciarIntentos: boolean = true): void {
     this.verificarEstadoJuego();
   }
 
-  verificarEstadoJuego(): void {
+  async verificarEstadoJuego(): Promise<void> {
     if (this.intentosRestantes === 0) {
       this.juegoTerminado = true;
       this.juegoPerdido = true;
-      this.mostrarTop();
-      this.guardarPuntaje();
+      await this.guardarPuntaje();
+      await this.mostrarTop();
     }
 
     if (this.palabraSecreta.join('') === this.palabra) {
       this.juegoTerminado = true;
-      this.mostrarTop();
+      // this.mostrarTop();
       this.juegoGanado = true;
       this.puntos += 100 - (6 - this.intentosRestantes) * 10;
 
@@ -161,7 +161,7 @@ inicializarJuego(reiniciarIntentos: boolean = true): void {
   }
 
   async mostrarTop() {
-  this.puntajes = await this.supabaseService.obtenerTopPuntajes('puntajes-mayor-menor', 5);
+  this.puntajes = await this.supabaseService.obtenerTopPuntajes('puntajes-ahorcado', 5);
   this.mostrarRanking = true;
 
   setTimeout(() => {
